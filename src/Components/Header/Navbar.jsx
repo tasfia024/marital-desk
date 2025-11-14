@@ -19,13 +19,13 @@ const Navbar = () => {
     }
 
     const links = <>
-        <li className='text-lg text-green-800 font-bold'><NavLink
+        <li className="text-lg text-green-800 font-bold"><NavLink
             to='/'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Home</NavLink></li>
+            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>Home</NavLink></li>
 
         <li className='text-lg text-green-800 font-bold'><NavLink
             to='/services'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>
+            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>
             <div className="dropdown">
                 <div tabIndex={0} role="button" className=" mx-1">Services</div>
                 {/* <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm text-green-900">
@@ -38,27 +38,25 @@ const Navbar = () => {
             </div>
         </NavLink></li>
 
-        <li className='text-lg text-green-800 font-bold'><NavLink
-            to='/userDashboard'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}> Dashboard</NavLink></li>
-
-        <li className='text-lg text-green-800 font-bold'><NavLink
+        {/* <li className='text-lg text-green-800 font-bold'><NavLink
             to='/kaziDashboard'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Kazi </NavLink></li>
+            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Kazi </NavLink></li> */}
 
-        <li className='text-lg text-green-800 font-bold'><NavLink
+        {/* <li className='text-lg text-green-800 font-bold'><NavLink
             to='/adminDashboard'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}> Admin</NavLink></li>     
+            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}> Admin</NavLink></li> */}
 
         <li className='text-lg text-green-800 font-bold'><NavLink
             to='/about'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>About Us</NavLink></li>
+            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>About Us</NavLink></li>
 
-        <li className='text-lg text-green-800 font-bold'><NavLink
+        {/* <li className='text-lg text-green-800 font-bold'><NavLink
+            to='/userDashboard'
+            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}> Dashboard</NavLink></li> */}
+
+        {/* <li className='text-lg text-green-800 font-bold'><NavLink
             to='/profile'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Profile</NavLink></li>
-
-        
+            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Profile</NavLink></li> */}
 
     </>
     return (
@@ -92,16 +90,17 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='navbar-end '>
-                    <div >
+                    <div>
                         {
-                            user && user.photoURL ? <div className="mr-2 flex gap-2">
-                                <img
+                            user && user.email ? <div className="mr-2 flex gap-2">
+                                {/* <img
                                     src={user.photoURL}
                                     alt="user"
                                     referrerPolicy="no-referrer"
-                                    className='rounded-full w-12' />
+                                    className='rounded-full w-12' /> */}
+
                                 <button onClick={handleLogout} className="btn bg-gradient-to-r from-[#013223] to-[#006747] text-white">Logout</button>
-                            </div> : <Link to='/auth/login' className="btn bg-gradient-to-r from-[#013223] to-[#006747] text-white">Login</Link>
+                            </div> : <Link to='/login' className="btn bg-gradient-to-r from-[#013223] to-[#006747] text-white">Login</Link>
                         }
                     </div>
                     <label className="swap swap-rotate ">

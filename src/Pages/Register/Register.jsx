@@ -2,37 +2,32 @@ import React, { use, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Provider/AuthContext';
 import { toast } from 'react-toastify';
-import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoMdEye } from 'react-icons/io';
 
 const Register = () => {
-    const { setUser, createUser, loginWithGoogle ,updateUser } = use(AuthContext);
+    const { setUser, createUser } = use(AuthContext);
     const [error, setError] = useState(false);
 
     // navigation
-    const navigate= useNavigate();
-
+    const navigate = useNavigate();
 
     // Show Password
     const [showPassword, setShowPassword] = useState(false);
-    // Show PAssword
     const handleToggleShowPassword = (e) => {
         e.preventDefault();
         setShowPassword(!showPassword)
     }
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         const from = e.target;
         const displayName = from.name.value;
-        const photoURL = from.photo.value;
         const email = from.email.value;
         const password = from.password.value;
-        // console.log({ displayName, photoURL, email, password });
 
         // Password validation
-        if (!/.{6,}/.test(password)) {
+        if (!/.{8,}/.test(password)) {
             setError('Password must be at least 8 characters long.');
             return;
         } else if (!/[A-Z]/.test(password)) {
@@ -51,53 +46,18 @@ const Register = () => {
             setError('');
         }
 
-        // register with email/password
-        console.log('clicked');
-        createUser(email, password)
-            .then((result) => {
-                // Signed up 
-                const user = result.user;
-                // Update User
-                updateUser({ displayName, photoURL })
-                    .then(() => {
-                        setUser({ ...user, displayName, photoURL });
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        setUser(user);
-                    });
-                setUser(user);
-                toast.success('User Registration Successfull!!')
-                navigate('/');
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                toast.error(errorCode, errorMessage);
-            });
-
-
+        try {
+            await createUser(displayName, email, password);
+            toast.success('User Registration Successful!');
+            navigate('/');
+        } catch (error) {
+            setError(error.message);
+            toast.error(error.message);
+        }
     };
-
-
-    //  login with google
-    const handleLoginWithGoogle = (e) => {
-        e.preventDefault();
-        loginWithGoogle()
-            .then((result) => {
-                // Signed up 
-                const user = result.user;
-                setUser(user);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
 
     return (
         <div className="hero bg-base-200 min-h-screen">
-
-
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                 <div className="card-body">
                     <h1 className="text-2xl text-center text-green-900 font-bold">Register now!</h1>
@@ -109,14 +69,7 @@ const Register = () => {
                                 type="text"
                                 className="input"
                                 placeholder="Name"
-                            />
-
-                            <label className="label">Photo URL</label>
-                            <input
-                                name='photo'
-                                type="text"
-                                className="input"
-                                placeholder="Photo URL"
+                                required
                             />
 
                             <label className="label">Email</label>
@@ -144,21 +97,16 @@ const Register = () => {
                                     /> : <IoMdEye />}
                                 </button>
                             </div>
-
-
                             {
-                                !error ? '' : <p className='text-sm text-red-600 text-center'>{error}</p>
+                                !error ? '' : <p className="text-sm text-red-600 text-center">{error}</p>
                             }
-                            <button className="btn bg-[#006747] text-white mt-4">Register</button>
+                            <button type="submit" className="btn bg-[#006747] text-white mt-4">Register</button>
                         </fieldset>
                     </form>
-                    <button
-                        onClick={handleLoginWithGoogle}
-                        className='btn bg-white'><FcGoogle />Login with Google</button>
 
-                    <p>Already have any account?Please <Link
-                        className='text-green-600 underline'
-                        to='/auth/login'>Login</Link>
+                    <p>Already have any account? Please <Link
+                        className="text-green-600 underline"
+                        to='/login'>Login</Link>
                     </p>
                 </div>
             </div>

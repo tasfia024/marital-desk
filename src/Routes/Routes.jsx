@@ -12,59 +12,50 @@ import UpdateProfile from "../Pages/Profile/UpdateProfile";
 import UserDashboard from "../Pages/Dashboards/UserDashboard";
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard/AdminDashboard";
 const router = createBrowserRouter([
-  {
-    path: "/",
-    Component: Root,
-    children:[
-        {
-            index: true,
-            Component: Home,
-        },
-        {
-            path:'/about',
-            Component: About
-        },
-        {
-            path:'/services',
-            Component:Services
-        },
-        {
-            path:'/kaziDashboard',
-            Component: KaziDashboard
-        },
-        {
-            path:'/userDashboard',
-            Component: UserDashboard
-        },
-        {
-            path:'/adminDashboard',
-            Component: AdminDashboard,
-        },
-        {
-            path:'/profile',
-            Component: Profile
-        },
-        
-    ]
-  },
-  {
-    path: '/auth',
-    element:<AuthLayout></AuthLayout>,
-    children:[
-        {
-            path:'/auth/login',
-            Component: Login
-        },
-        {
-            path:'/auth/register',
-            Component: Register
-        },
-        {
-            path:'/auth/updateProfile',
-            Component: UpdateProfile
-        },
-    ]
-  }
+    {
+        path: "/",
+        Component: Root,
+        element: <AuthLayout></AuthLayout>,
+        children: [
+            {
+                index: true,
+                Component: Home,
+            },
+            {
+                path: '/about',
+                Component: About
+            },
+            {
+                path: '/services',
+                Component: Services
+            },
+            {
+                path: '/kaziDashboard',
+                Component: KaziDashboard
+            },
+            {
+                path: '/userDashboard',
+                Component: UserDashboard
+            },
+            {
+                path: '/adminDashboard',
+                Component: AdminDashboard,
+            },
+            {
+                path: '/profile',
+                Component: Profile
+            },
+            {
+                path: '/login',
+                Component: Login
+            },
+            {
+                path: '/register',
+                Component: Register
+            },
+
+        ]
+    },
 ]);
 
 export default router;

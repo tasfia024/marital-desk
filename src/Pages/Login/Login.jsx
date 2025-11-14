@@ -2,54 +2,38 @@ import React, { use, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Provider/AuthContext';
 import { toast } from 'react-toastify';
-import { FcGoogle } from 'react-icons/fc';
 import { FaEyeSlash } from 'react-icons/fa';
 import { IoMdEye } from 'react-icons/io';
 
 const Login = () => {
-    const { setUser, login, loginWithGoogle, resetPassword } = use(AuthContext);
+    const { login, resetPassword } = use(AuthContext);
     // Show Password
     const [showPassword, setShowPassword] = useState(false);
     // get email
     const emailRef = useRef();
     const [email, setEmail] = useState('');
+    const [error, setError] = useState(false);
 
     // navigation
     const navigate = useNavigate();
-
     // login with email/password
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const from = e.target;
         const email = from.email.value;
         const password = from.password.value;
         // console.log({ email, password });
-        login(email, password)
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-                toast.success('Logged in successfully!!');
-                navigate('/');
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                toast.error(errorCode, errorMessage);
-            });
-    }
 
-    //  login with google
-    const handleLoginWithGoogle = (e) => {
-        e.preventDefault();
-        loginWithGoogle()
-            .then((result) => {
-                // Signed up 
-                const user = result.user;
-                setUser(user);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        try {
+            await login(email, password);
+            toast.success('Logged in successfully!!');
+            navigate('/');
+        } catch (error) {
+            setError(error.message);
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.error(errorCode, errorMessage);
+        }
     }
 
     // Show Password
@@ -114,6 +98,11 @@ const Login = () => {
                                     /> : <IoMdEye />}
                                 </button>
                             </div>
+
+                            {
+                                !error ? '' : <p className="text-sm text-red-600 text-center">{error}</p>
+                            }
+
                             <Link
                                 onClick={handleResetPassword}
                                 className="hover:underline mt-2"
@@ -122,16 +111,11 @@ const Login = () => {
                             </Link>
                             <button className="btn bg-[#006747] text-white  mt-4">Login</button>
                         </fieldset>
-
                     </form>
-                    <button
-                        onClick={handleLoginWithGoogle}
-                        className='btn bg-white'><FcGoogle />Login with Google
-                    </button>
 
-                    <p>Does not have any account?Please <Link
+                    <p>Does not have any account? Please <Link
                         className='text-green-600 underline'
-                        to='/auth/register'>Register</Link>
+                        to='/register'>Register</Link>
                     </p>
                 </div>
             </div>
