@@ -40,9 +40,9 @@ const Navbar = () => {
 
         {/* <li className='text-lg text-green-800 font-bold'><NavLink
             to='/kaziDashboard'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Kazi </NavLink></li> */}
+            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}>Kazi </NavLink></li>
 
-        {/* <li className='text-lg text-green-800 font-bold'><NavLink
+        <li className='text-lg text-green-800 font-bold'><NavLink
             to='/adminDashboard'
             className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}> Admin</NavLink></li> */}
 
@@ -50,9 +50,11 @@ const Navbar = () => {
             to='/about'
             className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>About Us</NavLink></li>
 
-        {/* <li className='text-lg text-green-800 font-bold'><NavLink
-            to='/userDashboard'
-            className={({ isActive }) => isActive && 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'}> Dashboard</NavLink></li> */}
+        {
+            user && user.email ? <li className='text-lg text-green-800 font-bold'><NavLink
+                to='/marital-desk/dashboard'
+                className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}> Dashboard</NavLink></li> : ''
+        }
 
         {/* <li className='text-lg text-green-800 font-bold'><NavLink
             to='/profile'

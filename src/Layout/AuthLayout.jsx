@@ -8,8 +8,8 @@ const AuthLayout = () => {
     return (
         <div>
             <Navbar></Navbar>
-            
-            <main className='min-h-[50vh] '>
+
+            <main className='min-h-[50vh]'>
                 <Outlet></Outlet>
                 <ToastContainer></ToastContainer>
             </main>
