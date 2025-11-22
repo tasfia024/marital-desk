@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { use } from 'react';
 import logoImg from './../../assets/Maritaldesk.jpeg'
+import { AuthContext } from '../../Provider/AuthContext';
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const AdminNavbar = ({ onSidebarToggle }) => {
+    const { user, logout } = use(AuthContext);
+    const navigate = useNavigate();
+
+    // Logout
+    const handleLogout = (e) => {
+        e.preventDefault();
+        logout()
+        // toast.success('Logged out successfully!!');
+        // navigate("/");
+        // .then(() => {
+        //     toast.success('Logged out successfully!!')
+        // }).catch((error) => {
+        //     console.log(error)
+        // });
+    }
+
     return (
         <nav className="bg-gray-800 text-white px-4 py-3 flex justify-between items-center shadow-md">
             {/* Sidebar toggle button for mobile */}
@@ -15,7 +34,7 @@ const AdminNavbar = ({ onSidebarToggle }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            <div className="text-xl flex items-center justify-center gap-1 font-bold">
+            <a href='/' className="text-xl flex items-center justify-center gap-1 font-bold">
                 <img
                     src={logoImg}
                     alt="logo"
@@ -23,10 +42,10 @@ const AdminNavbar = ({ onSidebarToggle }) => {
                 />
                 <span className='text-4xl font-light text-gray-100'>|</span>
                 <span className='font-bold text-2xl text-gray-100'>MaritalDesk</span>
-            </div>
+            </a>
             <ul className="flex space-x-6">
                 {/* <li><a href="/admin/settings" className="hover:text-gray-300">Settings</a></li> */}
-                <li><a href="/" className="hover:text-gray-300">Logout</a></li>
+                <li><a href="javascript:void(0)" onClick={handleLogout} className="btn bg-gradient-to-r from-[#013223] to-[#006747] text-white hover:text-gray-300">Logout</a></li>
             </ul>
         </nav>
     );
