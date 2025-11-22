@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-import { AuthContext } from '../../Provider/AuthContext';
+import { AuthContext } from './../../../Provider/AuthContext';
 import { Link } from 'react-router';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -42,7 +42,7 @@ const Profile = () => {
                     <Link
                         to='/auth/updateProfile'
                         className="btn bg-[#006747] hover:bg-green-900 text-white w-full"
-                        data-aos="fade-up" 
+                        data-aos="fade-up"
                         data-aos-delay="200"
                     >Update Profile
                     </Link>

@@ -1,7 +1,7 @@
 import React, { use } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../../Provider/AuthContext';
+import { AuthContext } from './../../../Provider/AuthContext';
 
 const UpdateProfile = () => {
     // Navigate to home page
@@ -19,7 +19,7 @@ const UpdateProfile = () => {
         // Update User
         updateUser({ displayName, photoURL })
             .then(() => {
-                setUser({...user,displayName,photoURL});
+                setUser({ ...user, displayName, photoURL });
                 toast.success('User profile updated successfully!!')
                 navigate('/profile')
             })
