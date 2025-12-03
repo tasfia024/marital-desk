@@ -3,6 +3,7 @@ import logoImg from './../../assets/Maritaldesk.jpeg'
 import { AuthContext } from '../../Provider/AuthContext';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { User, LogOut } from "lucide-react";
 
 const AdminNavbar = ({ onSidebarToggle }) => {
     const { user, logout } = use(AuthContext);
@@ -43,9 +44,10 @@ const AdminNavbar = ({ onSidebarToggle }) => {
                 <span className='text-4xl font-light text-gray-100'>|</span>
                 <span className='font-bold text-2xl text-gray-100'>MaritalDesk</span>
             </a>
-            <ul className="flex space-x-6">
+            <ul className="flex space-x-3">
                 {/* <li><a href="/admin/settings" className="hover:text-gray-300">Settings</a></li> */}
-                <li><a href="javascript:void(0)" onClick={handleLogout} className="btn bg-gradient-to-r from-[#013223] to-[#006747] text-white hover:text-gray-300">Logout</a></li>
+                <li><a href="javascript:void(0)" className="btn bg-secondary text-white hover:text-gray-300"><User />Profile</a></li>
+                <li><a href="javascript:void(0)" onClick={handleLogout} className="btn bg-gradient-to-r from-[#013223] to-[#006747] text-white hover:text-gray-300"><LogOut /> Logout</a></li>
             </ul>
         </nav>
     );

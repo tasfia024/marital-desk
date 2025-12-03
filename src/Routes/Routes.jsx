@@ -6,13 +6,16 @@ import PublicRoute from '../Components/PublicRoute';
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
-import KaziDashboard from "../Pages/Backend/Dashboard/KaziDashboard";
 import About from "../Pages/About/About";
 import Services from "../Pages/Services/Services";
 import Profile from "../Pages/Backend/Profile/Profile";
 import UpdateProfile from "../Pages/Backend/Profile/UpdateProfile";
-import AdminDashboard from "../Pages/Backend/Dashboard/AdminDashboard";
 import Dashboard from "../Pages/Backend/Dashboard/Dashboard";
+import MarriageApplication from "../Pages/Backend/MarriageApplication/MarriageApplication";
+import KaziList from "../Pages/Backend/KaziList/KaziList";
+import DivorceApplication from "../Pages/Backend/DivorceApplication/DivorceApplication";
+import MarriageCertificate from "../Pages/Backend/MarriageCertificate/MarriageCertificate";
+import ManageUser from "../Pages/Backend/ManageUser/ManageUser";
 
 const router = createBrowserRouter([
     {
@@ -48,8 +51,11 @@ const router = createBrowserRouter([
         ),
         children: [
             { path: 'dashboard', Component: Dashboard },
-            { path: 'kazi-dashboard', Component: KaziDashboard },
-            { path: 'admin-dashboard', Component: AdminDashboard },
+            { path: 'marriage-applications', Component: MarriageApplication },
+            { path: 'divorce-applications', Component: DivorceApplication },
+            { path: 'kazi-list', Component: KaziList },
+            { path: 'marriage-certificates', Component: MarriageCertificate },
+            { path: 'manage-users', Component: ManageUser },
         ]
     }
 ]);

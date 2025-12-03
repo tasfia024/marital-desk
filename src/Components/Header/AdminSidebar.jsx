@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from "react-router";
-import { HeartCrack, HeartHandshake, LayoutDashboard, ScrollText, User } from "lucide-react";
+import { HeartCrack, HeartHandshake, LayoutDashboard, ScrollText, User, ShieldUser } from "lucide-react";
 
 const AdminSidebar = (props) => {
     const { open, onClose } = props;
@@ -35,11 +35,14 @@ const AdminSidebar = (props) => {
 
                 <hr></hr>
                 <nav className="flex flex-col space-y-3">
-                    <NavLink to="/dashboard" className="hover:text-yellow-300 flex gap-2 items-center"><LayoutDashboard />Dashboard</NavLink>
-                    <NavLink to="/marriage" className="hover:text-yellow-300 flex gap-2 items-center"><HeartHandshake />Marriage</NavLink>
-                    <NavLink to="/divorce" className="hover:text-yellow-300 flex gap-2 items-center"><HeartCrack />Divorce</NavLink>
-                    <NavLink to="/certificate" className="hover:text-yellow-300 flex gap-2 items-center"><ScrollText />Certificate</NavLink>
-                    <NavLink to="/profile" className="hover:text-yellow-300 flex gap-2 items-center"><User />Profile</NavLink>
+                    <NavLink to="/marital-desk/dashboard" className="hover:text-yellow-300 flex gap-2 items-center"><LayoutDashboard />Dashboard</NavLink>
+                    <NavLink to="/marital-desk/marriage-applications" className="hover:text-yellow-300 flex gap-2 items-center"><HeartHandshake />Marriage Application</NavLink>
+                    <NavLink to="/marital-desk/divorce-applications" className="hover:text-yellow-300 flex gap-2 items-center"><HeartCrack />Divorce Application</NavLink>
+                    <NavLink to="/marital-desk/marriage-certificates" className="hover:text-yellow-300 flex gap-2 items-center"><ScrollText />Marriage Certificate</NavLink>
+                    <NavLink to="/marital-desk/kazi-list" className="hover:text-yellow-300 flex gap-2 items-center"><User />Kazi List</NavLink>
+                    <NavLink to="/marital-desk/manage-users" className="hover:text-yellow-300 flex gap-2 items-center"><ShieldUser />Manage User</NavLink>
+
+
                 </nav>
             </aside>
         </>
