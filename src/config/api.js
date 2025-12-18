@@ -16,6 +16,10 @@ export const apiClient = async (endpoint, method = 'GET', body = null) => {
     const res = await fetch(`${BASE_URL}${endpoint}`, options);
     if (!res.ok) {
         const errorData = await res.json();
+        // If backend returns field-specific error, throw full object
+        if (errorData.field && errorData.message) {
+            throw errorData;
+        }
         throw new Error(errorData.message || 'API request failed');
     }
     return res.json();

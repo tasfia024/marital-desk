@@ -72,6 +72,7 @@ const ManageUser = () => {
                                 <tr>
                                     <th className="p-3">#</th>
                                     <th className="p-3">Name</th>
+                                    <th className="p-3">Role</th>
                                     <th className="p-3">Mobile</th>
                                     <th className="p-3">Email</th>
                                     <th className="p-3">Action</th>
@@ -82,6 +83,7 @@ const ManageUser = () => {
                                     <tr key={user.id} className="border-b hover:bg-gray-100 text-gray-800">
                                         <td className="p-3">{idx + 1}</td>
                                         <td className="p-3">{user.name}</td>
+                                        <td className="p-3">{user.role}</td>
                                         <td className="p-3">{user.mobile || "-"}</td>
                                         <td className="p-3">{user.email}</td>
                                         <td className="p-3 text-center space-x-2">
