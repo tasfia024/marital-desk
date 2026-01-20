@@ -11,6 +11,7 @@ import Services from "../Pages/Services/Services";
 import Profile from "../Pages/Backend/Profile/Profile";
 import UpdateProfile from "../Pages/Backend/Profile/UpdateProfile";
 import Dashboard from "../Pages/Backend/Dashboard/Dashboard";
+import MarriageProposal from "../Pages/Backend/MarriageProposal/MarriageProposal";
 import MarriageApplication from "../Pages/Backend/MarriageApplication/MarriageApplication";
 import KaziApplication from "../Pages/Backend/KaziApplication/KaziApplication";
 import KaziApplicationForm from "../Pages/Backend/KaziApplication/KaziApplicationForm";
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
         ),
         children: [
             { path: 'dashboard', Component: Dashboard },
+            { path: 'marriage-proposals', Component: MarriageProposal },
             { path: 'marriage-applications', Component: MarriageApplication },
             { path: 'divorce-applications', Component: DivorceApplication },
             { path: 'kazi-applications', Component: KaziApplication },

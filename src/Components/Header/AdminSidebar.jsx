@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import { Link, NavLink } from "react-router";
-import { HeartCrack, HeartHandshake, LayoutDashboard, ScrollText, User, ShieldUser } from "lucide-react";
+import { HeartCrack, HeartHandshake, HandHeart, LayoutDashboard, ScrollText, User, ShieldUser } from "lucide-react";
 import { AuthContext } from '../../Provider/AuthContext';
 
 const AdminSidebar = (props) => {
@@ -40,25 +40,17 @@ const AdminSidebar = (props) => {
                 <nav className="flex flex-col space-y-3">
                     <NavLink to="/marital-desk/dashboard" className="hover:text-yellow-300 flex gap-2 items-center"><LayoutDashboard />Dashboard</NavLink>
 
-                    {
-                        user && ((user.role === 'super-admin') || (user.role === 'kazi')) ? (
-                            <NavLink to="/marital-desk/marriage-applications" className="hover:text-yellow-300 flex gap-2 items-center"><HeartHandshake />Marriage Application</NavLink>
-                        ) : null
-                    }
+                    <NavLink to="/marital-desk/marriage-proposals" className="hover:text-yellow-300 flex gap-2 items-center">
+                        <HandHeart />Marriage Proposal</NavLink>
 
-                    {
-                        user && (user.role === 'super-admin') || (user.role === 'kazi') ? (
-                            <NavLink to="/marital-desk/divorce-applications" className="hover:text-yellow-300 flex gap-2 items-center"><HeartCrack />Divorce Application</NavLink>
-                        ) : null
-                    }
+                    <NavLink to="/marital-desk/marriage-applications" className="hover:text-yellow-300 flex gap-2 items-center"><HeartHandshake />Marriage Application</NavLink>
 
-                    {
-                        user && (user.role === 'super-admin') || (user.role === 'kazi') ? (
-                            <NavLink to="/marital-desk/marriage-certificates" className="hover:text-yellow-300 flex gap-2 items-center"><ScrollText />Marriage Certificate</NavLink>
-                        ) : null
-                    }
+                    <NavLink to="/marital-desk/divorce-applications" className="hover:text-yellow-300 flex gap-2 items-center"><HeartCrack />Divorce Application</NavLink>
+
+                    <NavLink to="/marital-desk/marriage-certificates" className="hover:text-yellow-300 flex gap-2 items-center"><ScrollText />Marriage Certificate</NavLink>
 
                     <NavLink to="/marital-desk/kazi-applications" className="hover:text-yellow-300 flex gap-2 items-center"><User />Kazi Application</NavLink>
+
 
                     {
                         user && user.role === 'super-admin' ? (
