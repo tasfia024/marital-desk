@@ -1,27 +1,36 @@
 import { BASE_URL } from './baseUrl';
 
 // For authenticated requests
-export const apiClient = async (endpoint, method = 'GET', body = null) => {
-    const token = localStorage.getItem('token');
+export const apiClient = async (endpoint, method = "GET", body = null) => {
+    const token = localStorage.getItem("token");
+
     const options = {
         method,
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         },
     };
-    if (body) {
+
+    // If body is FormData → DO NOT touch headers/body
+    if (body instanceof FormData) {
+        options.body = body;
+    }
+    // Normal JSON request
+    else if (body) {
+        options.headers["Content-Type"] = "application/json";
         options.body = JSON.stringify(body);
     }
-    const res = await fetch(`${BASE_URL}${endpoint}`, options);
+
+    const res = await fetch(`${BASE_URL}/${endpoint}`, options);
+
     if (!res.ok) {
         const errorData = await res.json();
-        // If backend returns field-specific error, throw full object
         if (errorData.field && errorData.message) {
             throw errorData;
         }
-        throw new Error(errorData.message || 'API request failed');
+        throw new Error(errorData.message || "API request failed");
     }
+
     return res.json();
 };
 
@@ -37,7 +46,7 @@ export const publicApi = async (endpoint, method = 'GET', body = null) => {
     if (body) {
         options.body = JSON.stringify(body);
     }
-    const res = await fetch(`${BASE_URL}${endpoint}`, options);
+    const res = await fetch(`${BASE_URL}/${endpoint}`, options);
     if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.message || 'API request failed');

@@ -13,7 +13,7 @@ const AdminLayout = () => {
     const handleSidebarClose = () => setSidebarOpen(false);
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-100">
+        <div className="flex flex-col min-h-screen bg-gray-100 text-gray-900">
             <AdminNavbar onSidebarToggle={handleSidebarToggle} />
             <div className="flex flex-1">
                 {/* Sidebar: hidden on mobile, overlay when open */}

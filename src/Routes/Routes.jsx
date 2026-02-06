@@ -54,6 +54,8 @@ const router = createBrowserRouter([
         ),
         children: [
             { path: 'dashboard', Component: Dashboard },
+            { path: 'profile', Component: Profile },
+            { path: 'profile/edit', Component: UpdateProfile },
             { path: 'marriage-proposals', Component: MarriageProposal },
             { path: 'marriage-applications', Component: MarriageApplication },
             { path: 'divorce-applications', Component: DivorceApplication },
