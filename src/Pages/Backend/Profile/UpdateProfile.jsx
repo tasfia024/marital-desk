@@ -47,11 +47,14 @@ const UpdateProfile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(""); // Clear previous errors
 
         if (!form.dob || !form.gender || !form.nid || !form.mobile || !form.name || (!form.image && !imageFile)) {
             setError("All required fields must be filled.");
             return;
         }
+
+        setLoading(true);
 
         try {
             const formData = new FormData();
@@ -73,7 +76,10 @@ const UpdateProfile = () => {
 
             navigate("/marital-desk/profile");
         } catch (err) {
+            console.log("Update error:", err);
             setError(err.message || "Update failed");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -144,9 +150,10 @@ const UpdateProfile = () => {
                     <div>
                         <label className="block font-medium mb-1 text-green-900">Mobile <span className="text-red-600">*</span></label>
                         <input
+                            name="mobile"
                             value={form.mobile}
                             onChange={handleChange}
-                            className="border rounded p-2 w-full bg-gray-100"
+                            className="border rounded p-2 w-full"
                             placeholder="Mobile"
                         />
                     </div>
@@ -186,8 +193,8 @@ const UpdateProfile = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="mt-6 bg-green-700 text-white px-6 py-2 rounded">
-                    Update
+                <button type="submit" disabled={loading} className="mt-6 bg-green-700 text-white px-6 py-2 rounded disabled:bg-green-400">
+                    {loading ? "Updating..." : "Update"}
                 </button>
             </form>
         </main>

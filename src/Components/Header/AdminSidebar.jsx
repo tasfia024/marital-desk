@@ -2,6 +2,7 @@ import React, { use } from 'react';
 import { Link, NavLink } from "react-router";
 import { HeartCrack, HeartHandshake, HandHeart, LayoutDashboard, ScrollText, User, ShieldUser } from "lucide-react";
 import { AuthContext } from '../../Provider/AuthContext';
+import { BASE_URL } from '../../config/baseUrl';
 
 const AdminSidebar = (props) => {
     const { user } = use(AuthContext);
@@ -27,13 +28,22 @@ const AdminSidebar = (props) => {
                 </button>
                 {/* Profile Section */}
                 <div className="flex flex-col items-center mb-6">
-                    <img
-                        src="https://ui-avatars.com/api/?name=Admin&background=013223&color=fff&size=96"
-                        alt="Profile"
-                        className="w-24 h-24 rounded-full border-4 border-yellow-300 shadow-lg mb-2"
-                    />
+                    {user.image ? (
+                        <img
+                            src={`${BASE_URL}${user.image}`}
+                            crossOrigin="anonymous"
+                            alt="Profile"
+                            className="w-24 h-24 rounded-full border-4 border-yellow-300 shadow-lg mb-2"
+                        />
+                    ) : (
+                        <img
+                            src="https://ui-avatars.com/api/?name=Admin&background=013223&color=fff&size=96"
+                            alt="Profile"
+                            className="w-24 h-24 rounded-full border-4 border-yellow-300 shadow-lg mb-2"
+                        />
+                    )}
                     <span className="text-lg font-semibold">{user.name}</span>
-                    <span className="text-sm text-yellow-200">{user.email}</span>
+                    <span className="text-sm text-yellow-200">{user.role}</span>
                 </div>
 
                 <hr></hr>

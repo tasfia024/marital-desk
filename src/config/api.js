@@ -28,7 +28,7 @@ export const apiClient = async (endpoint, method = "GET", body = null) => {
         if (errorData.field && errorData.message) {
             throw errorData;
         }
-        throw new Error(errorData.message || "API request failed");
+        throw new Error(errorData.error || errorData.message || "API request failed");
     }
 
     return res.json();
