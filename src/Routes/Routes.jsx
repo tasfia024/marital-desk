@@ -12,6 +12,7 @@ import Profile from "../Pages/Backend/Profile/Profile";
 import UpdateProfile from "../Pages/Backend/Profile/UpdateProfile";
 import Dashboard from "../Pages/Backend/Dashboard/Dashboard";
 import MarriageProposal from "../Pages/Backend/MarriageProposal/MarriageProposal";
+import MarriageProposalForm from "../Pages/Backend/MarriageProposal/MarriageProposalForm";
 import MarriageApplication from "../Pages/Backend/MarriageApplication/MarriageApplication";
 import KaziApplication from "../Pages/Backend/KaziApplication/KaziApplication";
 import KaziApplicationForm from "../Pages/Backend/KaziApplication/KaziApplicationForm";
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
             { path: 'profile', Component: Profile },
             { path: 'profile/edit', Component: UpdateProfile },
             { path: 'marriage-proposals', Component: MarriageProposal },
+            { path: 'marriage-proposals/new', Component: MarriageProposalForm },
             { path: 'marriage-applications', Component: MarriageApplication },
             { path: 'divorce-applications', Component: DivorceApplication },
             { path: 'kazi-applications', Component: KaziApplication },

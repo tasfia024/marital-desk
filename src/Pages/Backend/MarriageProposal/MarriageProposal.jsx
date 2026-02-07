@@ -47,7 +47,7 @@ const MarriageProposal = () => {
         <main className="flex-1 p-10">
             <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
                 <h2 className="text-2xl font-bold text-green-900">Marriage Proposal</h2>
-                <button className="px-4 py-2 bg-green-700 text-white rounded" onClick={() => navigate("/marital-desk/kazi-applications/new")}>New Proposal</button>
+                <button className="px-4 py-2 bg-green-700 text-white rounded" onClick={() => navigate("/marital-desk/marriage-proposals/new")}>New Proposal</button>
             </header>
 
             {error && <div className="text-red-600 mb-4">{error}</div>}

@@ -5,7 +5,7 @@ import { AuthContext } from '../../../Provider/AuthContext';
 import { BASE_URL } from '../../../config/baseUrl';
 
 const Profile = () => {
-    const { user } = use(AuthContext);
+    const { updateUser } = use(AuthContext);
     const navigate = useNavigate();
     const [userData, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -14,7 +14,10 @@ const Profile = () => {
     useEffect(() => {
         setLoading(true);
         apiClient(`api/auth/user-profile`)
-            .then(res => setProfile(res.user))
+            .then(res => {
+                setProfile(res.user);
+                updateUser(res.user);
+            })
             .catch(() => setError("Failed to fetch User Data Information"))
             .finally(() => setLoading(false));
     }, []);

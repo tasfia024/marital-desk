@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { apiClient } from "../../../config/api";
+import { BASE_URL } from '../../../config/baseUrl';
 
 const KaziApplicationView = () => {
     const { id } = useParams();
@@ -31,7 +32,7 @@ const KaziApplicationView = () => {
                 <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
                     <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-green-700 bg-gray-100 flex items-center justify-center">
                         {kazi.photo ? (
-                            <img src={kazi.photo} alt="Kazi" className="w-full h-full object-cover" />
+                            <img src={`${BASE_URL}${kazi.photo}`} alt="Kazi" crossOrigin="anonymous" className="w-full h-full object-cover" />
                         ) : (
                             <span className="text-gray-400">No Photo</span>
                         )}

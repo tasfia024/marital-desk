@@ -13,8 +13,8 @@ const AuthProvider = ({ children }) => {
     const createUser = async (name, email, password) => {
         try {
             const data = await publicApi('api/auth/register', 'POST', { name, email, password });
-            setUser(data.user);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            // setUser(data.user);
+            // localStorage.setItem('user', JSON.stringify(data.user));
             return data;
         } catch (error) {
             throw error;
@@ -48,6 +48,8 @@ const AuthProvider = ({ children }) => {
     };
     const updateUser = (updateData) => {
         // Implement update user API call here
+        setUser(updateData);
+        localStorage.setItem('user', JSON.stringify(updateData));
     };
 
     useEffect(() => {

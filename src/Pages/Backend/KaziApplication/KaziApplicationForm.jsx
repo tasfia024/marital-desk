@@ -13,18 +13,18 @@ const KaziApplicationForm = () => {
         name: user?.name || "",
         fatherName: "",
         motherName: "",
-        dateOfBirth: "",
-        gender: "",
+        dateOfBirth: user?.dob ? user.dob.split('T')[0] : "",
+        gender: user?.gender || "",
         religion: "",
         email: user?.email || "",
         phone: user?.mobile || "",
-        nid: "",
-        address: "",
+        nid: user?.nid || "",
+        address: user?.address || "",
         registrationNo: "",
         officeAddress: "",
         district: "",
         upazila: "",
-        photo: "",
+        photo: user?.image || "",
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -38,7 +38,8 @@ const KaziApplicationForm = () => {
                     const app = res.application;
                     setForm({
                         ...app,
-                        dateOfBirth: app.dateOfBirth ? app.dateOfBirth.split('T')[0] : ""
+                        dateOfBirth: app.dateOfBirth ? app.dateOfBirth.split('T')[0] : "",
+                        photo: app.photo || "",
                     });
                     setIsEditable(app.status === "pending");
                 })
@@ -104,19 +105,19 @@ const KaziApplicationForm = () => {
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Father's Name <span className="text-red-600">*</span></label>
-                            <input type="text" name="fatherName" value={form.fatherName} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="fatherName" value={form.fatherName} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Mother's Name <span className="text-red-600">*</span></label>
-                            <input type="text" name="motherName" value={form.motherName} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="motherName" value={form.motherName} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Date of Birth <span className="text-red-600">*</span></label>
-                            <input type="date" name="dateOfBirth" value={form.dateOfBirth} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="date" name="dateOfBirth" value={form.dateOfBirth} className="w-full border rounded px-3 py-2 bg-white" disabled />
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Gender <span className="text-red-600">*</span></label>
-                            <select name="gender" value={form.gender} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable}>
+                            <select name="gender" value={form.gender} className="w-full border rounded px-3 py-2 bg-white" disabled>
                                 <option value="">Select</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -125,7 +126,7 @@ const KaziApplicationForm = () => {
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Religion <span className="text-red-600">*</span></label>
-                            <input type="text" name="religion" value={form.religion} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="religion" value={form.religion} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Email <span className="text-red-600">*</span></label>
@@ -137,32 +138,29 @@ const KaziApplicationForm = () => {
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">NID Number <span className="text-red-600">*</span></label>
-                            <input type="text" name="nid" value={form.nid} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="nid" value={form.nid} className="w-full border rounded px-3 py-2 bg-white" disabled />
                         </div>
                         <div className=" md:col-span-2">
                             <label className="block mb-1 font-medium">Present Address <span className="text-red-600">*</span></label>
-                            <input type="text" name="address" value={form.address} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="address" value={form.address} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div className=" md:col-span-2">
                             <label className="block mb-1 font-medium">Office Address <span className="text-red-600">*</span></label>
-                            <input type="text" name="officeAddress" value={form.officeAddress} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="officeAddress" value={form.officeAddress} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">District <span className="text-red-600">*</span></label>
-                            <input type="text" name="district" value={form.district} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="district" value={form.district} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div>
                             <label className="block mb-1 font-medium">Upazila <span className="text-red-600">*</span></label>
-                            <input type="text" name="upazila" value={form.upazila} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
+                            <input type="text" name="upazila" value={form.upazila} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
                         </div>
                         <div className="md:col-span-2">
                             <label className="block mb-1 font-medium">Kazi Registration No. <span className="text-red-600">*</span></label>
                             <input type="text" name="registrationNo" value={form.registrationNo} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
                         </div>
-                        <div className=" md:col-span-2">
-                            <label className="block mb-1 font-medium">Photo (URL)</label>
-                            <input type="text" name="photo" value={form.photo} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" placeholder="Paste photo URL or leave blank" disabled={!isEditable} />
-                        </div>
+
                     </div>
                     {isEditable && (
                         <div className="flex justify-end gap-2 mt-6">
