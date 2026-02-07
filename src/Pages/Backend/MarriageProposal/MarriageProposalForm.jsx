@@ -91,13 +91,13 @@ const MarriageProposalForm = () => {
             const filtered = users.filter(u => {
                 // If current user is groom, show only female users (brides)
                 if (isGroom) {
-                    return u.gender?.toLowerCase() === 'female' &&
+                    return u.gender?.toLowerCase() === 'female' && u.role === 'user' &&
                         (u.name?.toLowerCase().includes(searchOtherParty.toLowerCase()) ||
                             u.email?.toLowerCase().includes(searchOtherParty.toLowerCase()));
                 }
                 // If current user is bride, show only male users (grooms)
                 else if (isBride) {
-                    return u.gender?.toLowerCase() === 'male' &&
+                    return u.gender?.toLowerCase() === 'male' && u.role === 'user' &&
                         (u.name?.toLowerCase().includes(searchOtherParty.toLowerCase()) ||
                             u.email?.toLowerCase().includes(searchOtherParty.toLowerCase()));
                 }
@@ -399,7 +399,7 @@ const MarriageProposalForm = () => {
                                                         >
                                                             <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
                                                                 {u.image ? (
-                                                                    <img src={u.image} alt={u.name} className="w-full h-full object-cover" />
+                                                                    <img src={`${BASE_URL}${u.image}`} crossOrigin="anonymous" alt={u.name} className="w-full h-full object-cover" />
                                                                 ) : (
                                                                     <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white text-sm font-bold">
                                                                         {u.name?.charAt(0).toUpperCase()}
@@ -419,7 +419,7 @@ const MarriageProposalForm = () => {
                                             <div className="mt-4 p-3 bg-pink-50 border border-pink-200 rounded flex items-center gap-3">
                                                 <div className="w-12 h-12 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
                                                     {selectedOtherParty.image ? (
-                                                        <img src={selectedOtherParty.image} alt={selectedOtherParty.name} className="w-full h-full object-cover" />
+                                                        <img src={`${BASE_URL}${selectedOtherParty.image}`} crossOrigin="anonymous" alt={selectedOtherParty.name} className="w-full h-full object-cover" />
                                                     ) : (
                                                         <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold">
                                                             {selectedOtherParty.name?.charAt(0).toUpperCase()}
