@@ -83,6 +83,15 @@ const MarriageProposalForm = () => {
                         brideAddress: proposal.brideAddress,
                         kaziId: proposal.kaziId,
                     });
+
+                    // Set selected partner based on current user gender
+                    const partnerId = isGroom ? proposal.brideId : proposal.groomId;
+                    const partnerUser = await apiClient(`api/v1/marital-desk/users/${partnerId}`);
+                    setSelectedOtherParty(partnerUser.user);
+
+                    // Fetch marital status of partner
+                    const statusRes = await apiClient(`api/v1/marital-desk/users/${partnerId}/marital-status`);
+                    setSelectedPartyMaritalStatus(statusRes);
                 }
             } catch (err) {
                 setError("Failed to fetch data");
@@ -139,6 +148,18 @@ const MarriageProposalForm = () => {
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const calculateAge = (dob) => {
+        if (!dob) return null;
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
     };
 
     const handleSelectOtherParty = async (selectedUser) => {
@@ -358,14 +379,35 @@ const MarriageProposalForm = () => {
                                                         <p className="text-xs text-gray-600">{selectedOtherParty.email}</p>
                                                     </div>
                                                 </div>
+                                                {/* Partner Details */}
+                                                <div className="pt-3 border-t border-blue-200 mb-3">
+                                                    <div className="grid grid-cols-2 gap-2 text-xs">
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">DOB:</span>
+                                                            <p>{selectedOtherParty.dob ? new Date(selectedOtherParty.dob).toLocaleDateString() : "N/A"}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">Age:</span>
+                                                            <p>{selectedOtherParty.dob ? calculateAge(selectedOtherParty.dob) : (selectedOtherParty.age || "N/A")}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">NID:</span>
+                                                            <p>{selectedOtherParty.nid || "N/A"}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">Gender:</span>
+                                                            <p>{selectedOtherParty.gender || "N/A"}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 {/* Marital Status Badge */}
                                                 {loadingMaritalStatus ? (
                                                     <p className="text-xs text-gray-600">Loading marital status...</p>
                                                 ) : selectedPartyMaritalStatus ? (
-                                                    <div className="pt-3 border-t border-blue-200">
+                                                    <div className="pt-2 border-t border-blue-200">
                                                         <div className="flex items-center">
                                                             <span className="text-xs font-semibold text-gray-700">Marital Status:</span>
-                                                            <span className={`text-xs font-bold px-2 py-1 rounded-full ${selectedPartyMaritalStatus.maritalStatus === 'Single' ? 'bg-green-100 text-green-800' :
+                                                            <span className={`text-xs font-bold px-2 py-1 rounded-full ml-2 ${selectedPartyMaritalStatus.maritalStatus === 'Single' ? 'bg-green-100 text-green-800' :
                                                                 selectedPartyMaritalStatus.maritalStatus === 'Married' ? 'bg-yellow-100 text-yellow-800' :
                                                                     'bg-red-100 text-red-800'
                                                                 }`}>
@@ -520,14 +562,35 @@ const MarriageProposalForm = () => {
                                                         <p className="text-xs text-gray-600">{selectedOtherParty.email}</p>
                                                     </div>
                                                 </div>
+                                                {/* Partner Details */}
+                                                <div className="pt-3 border-t border-pink-200 mb-3">
+                                                    <div className="grid grid-cols-2 gap-2 text-xs">
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">DOB:</span>
+                                                            <p>{selectedOtherParty.dob ? new Date(selectedOtherParty.dob).toLocaleDateString() : "N/A"}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">Age:</span>
+                                                            <p>{selectedOtherParty.dob ? calculateAge(selectedOtherParty.dob) : (selectedOtherParty.age || "N/A")}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">NID:</span>
+                                                            <p>{selectedOtherParty.nid || "N/A"}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold text-gray-700">Gender:</span>
+                                                            <p>{selectedOtherParty.gender || "N/A"}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 {/* Marital Status Badge */}
                                                 {loadingMaritalStatus ? (
                                                     <p className="text-xs text-gray-600">Loading marital status...</p>
                                                 ) : selectedPartyMaritalStatus ? (
-                                                    <div className="pt-3 border-t border-pink-200">
+                                                    <div className="pt-2 border-t border-pink-200">
                                                         <div className="flex items-center">
                                                             <span className="text-xs font-semibold text-gray-700">Marital Status:</span>
-                                                            <span className={`text-xs font-bold px-2 py-1 rounded-full ${selectedPartyMaritalStatus.maritalStatus === 'Single' ? 'bg-green-100 text-green-800' :
+                                                            <span className={`text-xs font-bold px-2 py-1 rounded-full ml-2 ${selectedPartyMaritalStatus.maritalStatus === 'Single' ? 'bg-green-100 text-green-800' :
                                                                 selectedPartyMaritalStatus.maritalStatus === 'Married' ? 'bg-yellow-100 text-yellow-800' :
                                                                     'bg-red-100 text-red-800'
                                                                 }`}>
