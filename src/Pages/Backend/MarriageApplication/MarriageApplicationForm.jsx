@@ -124,12 +124,12 @@ const MarriageApplicationForm = () => {
     return (
         <main className="flex-1 p-10">
             <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-green-900">
+                <h2 className="text-2xl font-bold">
                     {id ? "Edit Marriage Application" : "Create Marriage Application"}
                 </h2>
                 <button
                     onClick={() => navigate("/marital-desk/marriage-applications")}
-                    className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                    className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 font-semibold"
                 >
                     Cancel
                 </button>
@@ -138,170 +138,172 @@ const MarriageApplicationForm = () => {
             {error && <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">{error}</div>}
             {successMsg && <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">{successMsg}</div>}
 
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow">
-                {/* Groom Information */}
-                <div className="mb-8">
-                    <h3 className="text-xl font-bold text-gray-700 mb-4 border-b pb-2">Groom Information</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Father's Name</label>
-                            <input
-                                type="text"
-                                name="groomFather"
-                                value={formData.groomFather}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Mother's Name</label>
-                            <input
-                                type="text"
-                                name="groomMother"
-                                value={formData.groomMother}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Religion</label>
-                            <input
-                                type="text"
-                                name="groomReligion"
-                                value={formData.groomReligion}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Occupation</label>
-                            <input
-                                type="text"
-                                name="groomOccupation"
-                                value={formData.groomOccupation}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Education</label>
-                            <input
-                                type="text"
-                                name="groomEducation"
-                                value={formData.groomEducation}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div className="col-span-2">
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Address</label>
-                            <textarea
-                                name="groomAddress"
-                                value={formData.groomAddress}
-                                onChange={handleChange}
-                                required
-                                rows="3"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Bride Information */}
-                <div className="mb-8">
-                    <h3 className="text-xl font-bold text-gray-700 mb-4 border-b pb-2">Bride Information</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Father's Name</label>
-                            <input
-                                type="text"
-                                name="brideFather"
-                                value={formData.brideFather}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Mother's Name</label>
-                            <input
-                                type="text"
-                                name="brideMother"
-                                value={formData.brideMother}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Religion</label>
-                            <input
-                                type="text"
-                                name="brideReligion"
-                                value={formData.brideReligion}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Occupation</label>
-                            <input
-                                type="text"
-                                name="brideOccupation"
-                                value={formData.brideOccupation}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Education</label>
-                            <input
-                                type="text"
-                                name="brideEducation"
-                                value={formData.brideEducation}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
-                        </div>
-                        <div className="col-span-2">
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Address</label>
-                            <textarea
-                                name="brideAddress"
-                                value={formData.brideAddress}
-                                onChange={handleChange}
-                                required
-                                rows="3"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            />
+            <section className="bg-white rounded-lg shadow-lg p-8">
+                <form onSubmit={handleSubmit}>
+                    {/* Groom Information */}
+                    <div className="mb-8 pb-6 border-b">
+                        <h3 className="text-xl font-bold mb-6 text-blue-700">Groom Information</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Father's Name</label>
+                                <input
+                                    type="text"
+                                    name="groomFather"
+                                    value={formData.groomFather}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Mother's Name</label>
+                                <input
+                                    type="text"
+                                    name="groomMother"
+                                    value={formData.groomMother}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Religion</label>
+                                <input
+                                    type="text"
+                                    name="groomReligion"
+                                    value={formData.groomReligion}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Occupation</label>
+                                <input
+                                    type="text"
+                                    name="groomOccupation"
+                                    value={formData.groomOccupation}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Education</label>
+                                <input
+                                    type="text"
+                                    name="groomEducation"
+                                    value={formData.groomEducation}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div className="col-span-2">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Address</label>
+                                <textarea
+                                    name="groomAddress"
+                                    value={formData.groomAddress}
+                                    onChange={handleChange}
+                                    required
+                                    rows="3"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Submit Button */}
-                <div className="flex justify-center gap-4">
-                    <button
-                        type="submit"
-                        className="px-8 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-semibold"
-                    >
-                        Save Application
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate("/marital-desk/marriage-applications")}
-                        className="px-8 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 font-semibold"
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </form>
+                    {/* Bride Information */}
+                    <div className="mb-8 pb-6 border-b">
+                        <h3 className="text-xl font-bold mb-6 text-pink-700">Bride Information</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Father's Name</label>
+                                <input
+                                    type="text"
+                                    name="brideFather"
+                                    value={formData.brideFather}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Mother's Name</label>
+                                <input
+                                    type="text"
+                                    name="brideMother"
+                                    value={formData.brideMother}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Religion</label>
+                                <input
+                                    type="text"
+                                    name="brideReligion"
+                                    value={formData.brideReligion}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Occupation</label>
+                                <input
+                                    type="text"
+                                    name="brideOccupation"
+                                    value={formData.brideOccupation}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Education</label>
+                                <input
+                                    type="text"
+                                    name="brideEducation"
+                                    value={formData.brideEducation}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                />
+                            </div>
+                            <div className="col-span-2">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Address</label>
+                                <textarea
+                                    name="brideAddress"
+                                    value={formData.brideAddress}
+                                    onChange={handleChange}
+                                    required
+                                    rows="3"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="flex justify-center gap-4">
+                        <button
+                            type="submit"
+                            className="px-8 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-semibold"
+                        >
+                            Save Application
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => navigate("/marital-desk/marriage-applications")}
+                            className="px-8 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 font-semibold"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </section>
         </main>
     );
 };
