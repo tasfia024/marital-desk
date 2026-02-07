@@ -13,6 +13,9 @@ const MarriageProposalView = () => {
     const [groomUser, setGroomUser] = useState(null);
     const [brideUser, setBrideUser] = useState(null);
     const [kazi, setKazi] = useState(null);
+    const [proposedByUser, setProposedByUser] = useState(null);
+    const [groomMaritalStatus, setGroomMaritalStatus] = useState(null);
+    const [brideMaritalStatus, setBrideMaritalStatus] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -27,24 +30,20 @@ const MarriageProposalView = () => {
             const proposal = res.application;
             setProposal(proposal);
 
-            // Fetch user details for groom and bride
-            const [groomRes, brideRes] = await Promise.all([
-                apiClient(`api/v1/marital-desk/users/${proposal.groomId}`),
-                apiClient(`api/v1/marital-desk/users/${proposal.brideId}`)
+            // Backend already includes groom, bride, kazi, and proposedByUser objects
+            setGroomUser(proposal.groom);
+            setBrideUser(proposal.bride);
+            setKazi(proposal.kazi);
+            setProposedByUser(proposal.proposedByUser);
+
+            // Fetch marital status for both groom and bride
+            const [groomStatusRes, brideStatusRes] = await Promise.all([
+                apiClient(`api/v1/marital-desk/users/${proposal.groomId}/marital-status`),
+                apiClient(`api/v1/marital-desk/users/${proposal.brideId}/marital-status`)
             ]);
 
-            setGroomUser(groomRes.user);
-            setBrideUser(brideRes.user);
-
-            // Fetch kazi details if available
-            if (proposal.kaziId) {
-                try {
-                    const kaziRes = await apiClient(`api/v1/marital-desk/kazi-applications/${proposal.kaziId}`);
-                    setKazi(kaziRes.application);
-                } catch (err) {
-                    console.log("Could not fetch kazi details");
-                }
-            }
+            setGroomMaritalStatus(groomStatusRes);
+            setBrideMaritalStatus(brideStatusRes);
         } catch (err) {
             setError("Failed to fetch proposal details");
             console.error(err);
@@ -98,7 +97,7 @@ const MarriageProposalView = () => {
                 {/* Status Section */}
                 <div className="mb-8 pb-6 border-b">
                     <h3 className="text-xl font-bold mb-4">Proposal Status</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div className="p-4 bg-gray-50 rounded border">
                             <p className="text-sm text-gray-600 mb-2">Proposal Status</p>
                             <span className={`inline-block px-3 py-1 rounded-full font-semibold text-sm ${getStatusBadgeColor(proposal.proposalStatus)}`}>
@@ -106,14 +105,18 @@ const MarriageProposalView = () => {
                             </span>
                         </div>
                         <div className="p-4 bg-gray-50 rounded border">
-                            <p className="text-sm text-gray-600 mb-2">Marital Status</p>
+                            <p className="text-sm text-gray-600 mb-2">Application Status</p>
                             <span className="inline-block px-3 py-1 rounded-full font-semibold text-sm bg-blue-100 text-blue-800">
                                 {proposal.maritalStatus}
                             </span>
                         </div>
                         <div className="p-4 bg-gray-50 rounded border">
                             <p className="text-sm text-gray-600 mb-2">Proposed By</p>
-                            <p className="text-sm font-semibold">{isProposedBy ? "You" : proposal.proposedBy.substring(0, 12) + "..."}</p>
+                            <p className="text-sm font-semibold">{isProposedBy ? "You" : proposedByUser?.name || "N/A"}</p>
+                        </div>
+                        <div className="p-4 bg-gray-50 rounded border">
+                            <p className="text-sm text-gray-600 mb-2">Proposed Date</p>
+                            <p className="text-sm font-semibold">{proposal.proposalDate ? new Date(proposal.proposalDate).toLocaleDateString() : "N/A"}</p>
                         </div>
                     </div>
                 </div>
@@ -137,6 +140,27 @@ const MarriageProposalView = () => {
                                     <p className="font-bold text-lg">{groomUser.name}</p>
                                     <p className="text-sm text-gray-600">{groomUser.email}</p>
                                     <p className="text-sm text-gray-600">{groomUser.mobile}</p>
+                                </div>
+                            </div>
+                        )}
+                        {groomMaritalStatus && (
+                            <div className="p-4 bg-blue-50 rounded border-l-4 border-blue-500">
+                                <h4 className="font-bold text-blue-800 mb-3">Marital Status</h4>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Status:</span>
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                                            {groomMaritalStatus.maritalStatus}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Marriages:</span>
+                                        <span className="font-semibold text-blue-900">{groomMaritalStatus.marriageCount}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Divorces:</span>
+                                        <span className="font-semibold text-blue-900">{groomMaritalStatus.divorceCount}</span>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -188,6 +212,27 @@ const MarriageProposalView = () => {
                                     <p className="font-bold text-lg">{brideUser.name}</p>
                                     <p className="text-sm text-gray-600">{brideUser.email}</p>
                                     <p className="text-sm text-gray-600">{brideUser.mobile}</p>
+                                </div>
+                            </div>
+                        )}
+                        {brideMaritalStatus && (
+                            <div className="p-4 bg-pink-50 rounded border-l-4 border-pink-500">
+                                <h4 className="font-bold text-pink-800 mb-3">Marital Status</h4>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Status:</span>
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-800">
+                                            {brideMaritalStatus.maritalStatus}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Marriages:</span>
+                                        <span className="font-semibold text-pink-900">{brideMaritalStatus.marriageCount}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Divorces:</span>
+                                        <span className="font-semibold text-pink-900">{brideMaritalStatus.divorceCount}</span>
+                                    </div>
                                 </div>
                             </div>
                         )}

@@ -72,6 +72,16 @@ const MarriageProposal = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this proposal?")) return;
+        try {
+            await apiClient(`api/v1/marital-desk/marriage-applications/${id}`, "DELETE");
+            fetchProposals();
+        } catch (err) {
+            setError("Failed to delete proposal");
+        }
+    };
+
     return (
         <main className="flex-1 p-10">
             <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
@@ -116,10 +126,10 @@ const MarriageProposal = () => {
                                     return (
                                         <tr key={proposal.id} className="border-b hover:bg-gray-50 text-gray-800">
                                             <td className="p-3">{idx + 1}</td>
-                                            <td className="p-3 font-medium">{proposal.groomFather}</td>
-                                            <td className="p-3 font-medium">{proposal.brideFather}</td>
-                                            <td className="p-3">{proposal.kaziId ? proposal.kaziId.substring(0, 8) + '...' : 'N/A'}</td>
-                                            <td className="p-3 text-xs">{proposal.proposedBy.substring(0, 8)}...</td>
+                                            <td className="p-3 font-medium">{proposal.groomName}</td>
+                                            <td className="p-3 font-medium">{proposal.brideName}</td>
+                                            <td className="p-3">{proposal.kaziName}</td>
+                                            <td className="p-3">{proposal.proposedByName}</td>
                                             <td className="p-3">
                                                 <span className={`inline-block px-2 py-1 rounded-full text-xs font-semibold ${getStatusBadgeColor(proposal.proposalStatus)}`}>
                                                     {proposal.proposalStatus}
@@ -138,30 +148,19 @@ const MarriageProposal = () => {
                                                     View
                                                 </button>
                                                 {canEdit && (
-                                                    <button
-                                                        className="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600"
-                                                        onClick={() => handleEdit(proposal.id)}
-                                                    >
-                                                        Edit
-                                                    </button>
-                                                )}
-                                                {isBride && proposal.proposalStatus === 'pending' && (
                                                     <>
                                                         <button
-                                                            className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700"
-                                                            onClick={() => handleAccept(proposal.id)}
+                                                            className="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600"
+                                                            onClick={() => handleEdit(proposal.id)}
                                                         >
-                                                            Accept
+                                                            Edit
                                                         </button>
-                                                        <button
-                                                            className="px-2 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700"
-                                                            onClick={() => handleReject(proposal.id)}
-                                                        >
-                                                            Reject
+                                                        <button className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700" onClick={() => handleDelete(proposal.id)}>
+                                                            Delete
                                                         </button>
                                                     </>
                                                 )}
-                                                {isGroom && proposal.proposalStatus === 'pending' && (
+                                                {(isBride || isGroom) && !isProposedBy && (proposal.proposalStatus === 'pending') && (
                                                     <>
                                                         <button
                                                             className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700"
