@@ -41,8 +41,10 @@ const MarriageProposalForm = () => {
     const [searchOtherParty, setSearchOtherParty] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [selectedOtherParty, setSelectedOtherParty] = useState(null);
+    const [selectedPartyMaritalStatus, setSelectedPartyMaritalStatus] = useState(null);
     const [kaziSearchDistrict, setKaziSearchDistrict] = useState("");
     const [kaziSearchUpazila, setKaziSearchUpazila] = useState("");
+    const [loadingMaritalStatus, setLoadingMaritalStatus] = useState(false);
 
     // Fetch users and kazis
     useEffect(() => {
@@ -113,8 +115,21 @@ const MarriageProposalForm = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSelectOtherParty = (selectedUser) => {
+    const handleSelectOtherParty = async (selectedUser) => {
         setSelectedOtherParty(selectedUser);
+        setLoadingMaritalStatus(true);
+
+        try {
+            // Fetch marital status
+            const statusRes = await apiClient(`api/v1/marital-desk/users/${selectedUser.id}/marital-status`);
+            setSelectedPartyMaritalStatus(statusRes);
+        } catch (err) {
+            console.error("Failed to fetch marital status:", err);
+            setSelectedPartyMaritalStatus(null);
+        } finally {
+            setLoadingMaritalStatus(false);
+        }
+
         if (isGroom) {
             setForm(prev => ({
                 ...prev,
@@ -278,20 +293,44 @@ const MarriageProposalForm = () => {
                                             )}
                                         </div>
                                         {form.groomId && selectedOtherParty && (
-                                            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
-                                                    {selectedOtherParty.image ? (
-                                                        <img src={`${BASE_URL}${selectedOtherParty.image}`} crossOrigin="anonymous" alt={selectedOtherParty.name} className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold">
-                                                            {selectedOtherParty.name?.charAt(0).toUpperCase()}
+                                            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <div className="w-12 h-12 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
+                                                        {selectedOtherParty.image ? (
+                                                            <img src={`${BASE_URL}${selectedOtherParty.image}`} crossOrigin="anonymous" alt={selectedOtherParty.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold">
+                                                                {selectedOtherParty.name?.charAt(0).toUpperCase()}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-semibold text-sm">✓ {selectedOtherParty.name}</p>
+                                                        <p className="text-xs text-gray-600">{selectedOtherParty.email}</p>
+                                                    </div>
+                                                </div>
+                                                {/* Marital Status Badge */}
+                                                {loadingMaritalStatus ? (
+                                                    <p className="text-xs text-gray-600">Loading marital status...</p>
+                                                ) : selectedPartyMaritalStatus ? (
+                                                    <div className="pt-3 border-t border-blue-200">
+                                                        <div className="flex items-center">
+                                                            <span className="text-xs font-semibold text-gray-700">Marital Status:</span>
+                                                            <span className={`text-xs font-bold px-2 py-1 rounded-full ${selectedPartyMaritalStatus.maritalStatus === 'Single' ? 'bg-green-100 text-green-800' :
+                                                                selectedPartyMaritalStatus.maritalStatus === 'Married' ? 'bg-yellow-100 text-yellow-800' :
+                                                                    'bg-red-100 text-red-800'
+                                                                }`}>
+                                                                {selectedPartyMaritalStatus.maritalStatus}
+                                                            </span>
                                                         </div>
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    <p className="font-semibold text-sm">✓ {selectedOtherParty.name}</p>
-                                                    <p className="text-xs text-gray-600">{selectedOtherParty.email}</p>
-                                                </div>
+                                                        {selectedPartyMaritalStatus.marriageCount > 0 && (
+                                                            <p className="text-xs text-gray-600 mt-1 mr-1">Marriages: {selectedPartyMaritalStatus.marriageCount}</p>
+                                                        )}
+                                                        {selectedPartyMaritalStatus.divorceCount > 0 && (
+                                                            <p className="text-xs text-gray-600">Divorces: {selectedPartyMaritalStatus.divorceCount}</p>
+                                                        )}
+                                                    </div>
+                                                ) : null}
                                             </div>
                                         )}
                                     </div>
@@ -416,20 +455,44 @@ const MarriageProposalForm = () => {
                                             )}
                                         </div>
                                         {form.brideId && selectedOtherParty && (
-                                            <div className="mt-4 p-3 bg-pink-50 border border-pink-200 rounded flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
-                                                    {selectedOtherParty.image ? (
-                                                        <img src={`${BASE_URL}${selectedOtherParty.image}`} crossOrigin="anonymous" alt={selectedOtherParty.name} className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold">
-                                                            {selectedOtherParty.name?.charAt(0).toUpperCase()}
+                                            <div className="mt-4 p-4 bg-pink-50 border border-pink-200 rounded">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <div className="w-12 h-12 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
+                                                        {selectedOtherParty.image ? (
+                                                            <img src={`${BASE_URL}${selectedOtherParty.image}`} crossOrigin="anonymous" alt={selectedOtherParty.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold">
+                                                                {selectedOtherParty.name?.charAt(0).toUpperCase()}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-semibold text-sm">✓ {selectedOtherParty.name}</p>
+                                                        <p className="text-xs text-gray-600">{selectedOtherParty.email}</p>
+                                                    </div>
+                                                </div>
+                                                {/* Marital Status Badge */}
+                                                {loadingMaritalStatus ? (
+                                                    <p className="text-xs text-gray-600">Loading marital status...</p>
+                                                ) : selectedPartyMaritalStatus ? (
+                                                    <div className="pt-3 border-t border-pink-200">
+                                                        <div className="flex items-center">
+                                                            <span className="text-xs font-semibold text-gray-700">Marital Status:</span>
+                                                            <span className={`text-xs font-bold px-2 py-1 rounded-full ${selectedPartyMaritalStatus.maritalStatus === 'Single' ? 'bg-green-100 text-green-800' :
+                                                                selectedPartyMaritalStatus.maritalStatus === 'Married' ? 'bg-yellow-100 text-yellow-800' :
+                                                                    'bg-red-100 text-red-800'
+                                                                }`}>
+                                                                {selectedPartyMaritalStatus.maritalStatus}
+                                                            </span>
                                                         </div>
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    <p className="font-semibold text-sm">✓ {selectedOtherParty.name}</p>
-                                                    <p className="text-xs text-gray-600">{selectedOtherParty.email}</p>
-                                                </div>
+                                                        {selectedPartyMaritalStatus.marriageCount > 0 && (
+                                                            <p className="text-xs text-gray-600 mt-1 mr-1">Marriages: {selectedPartyMaritalStatus.marriageCount}</p>
+                                                        )}
+                                                        {selectedPartyMaritalStatus.divorceCount > 0 && (
+                                                            <p className="text-xs text-gray-600">Divorces: {selectedPartyMaritalStatus.divorceCount}</p>
+                                                        )}
+                                                    </div>
+                                                ) : null}
                                             </div>
                                         )}
                                     </div>
