@@ -15,6 +15,8 @@ import MarriageProposal from "../Pages/Backend/MarriageProposal/MarriageProposal
 import MarriageProposalForm from "../Pages/Backend/MarriageProposal/MarriageProposalForm";
 import MarriageProposalView from "../Pages/Backend/MarriageProposal/MarriageProposalView";
 import MarriageApplication from "../Pages/Backend/MarriageApplication/MarriageApplication";
+import MarriageApplicationView from "../Pages/Backend/MarriageApplication/MarriageApplicationView";
+import MarriageApplicationForm from "../Pages/Backend/MarriageApplication/MarriageApplicationForm";
 import KaziApplication from "../Pages/Backend/KaziApplication/KaziApplication";
 import KaziApplicationForm from "../Pages/Backend/KaziApplication/KaziApplicationForm";
 import KaziApplicationView from "../Pages/Backend/KaziApplication/KaziApplicationView";
@@ -63,6 +65,8 @@ const router = createBrowserRouter([
             { path: 'marriage-proposals/edit/:id', Component: MarriageProposalForm },
             { path: 'marriage-proposals/view/:id', Component: MarriageProposalView },
             { path: 'marriage-applications', Component: MarriageApplication },
+            { path: 'marriage-applications/edit/:id', Component: MarriageApplicationForm },
+            { path: 'marriage-applications/view/:id', Component: MarriageApplicationView },
             { path: 'divorce-applications', Component: DivorceApplication },
             { path: 'kazi-applications', Component: KaziApplication },
             { path: 'kazi-applications/new', Component: KaziApplicationForm },

@@ -22,7 +22,7 @@ const Profile = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    if (loading) return <div className="p-10">Loading...</div>;
+    if (loading) return <div className="p-10 text-center">Loading...</div>;
     if (error) return <div className="p-10 text-red-600">{error}</div>;
     if (!userData) return <div className="p-10">No data found.</div>;
 

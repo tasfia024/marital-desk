@@ -110,7 +110,6 @@ const MarriageProposal = () => {
                                     <th className="p-3 text-left">Kazi</th>
                                     <th className="p-3 text-left">Proposed By</th>
                                     <th className="p-3 text-left">Proposal Status</th>
-                                    <th className="p-3 text-left">Marital Status</th>
                                     <th className="p-3 text-center">Action</th>
                                 </tr>
                             </thead>
@@ -133,11 +132,6 @@ const MarriageProposal = () => {
                                             <td className="p-3">
                                                 <span className={`inline-block px-2 py-1 rounded-full text-xs font-semibold ${getStatusBadgeColor(proposal.proposalStatus)}`}>
                                                     {proposal.proposalStatus}
-                                                </span>
-                                            </td>
-                                            <td className="p-3">
-                                                <span className="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                                    {proposal.maritalStatus}
                                                 </span>
                                             </td>
                                             <td className="p-3 text-center space-x-1 flex justify-center">

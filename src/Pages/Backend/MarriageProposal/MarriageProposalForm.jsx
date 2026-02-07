@@ -713,7 +713,7 @@ const MarriageProposalForm = () => {
                                 >
                                     <option value="">-- Select a Kazi ({filteredKazis.length}) --</option>
                                     {filteredKazis.map(kazi => (
-                                        <option key={kazi.id} value={kazi.id}>
+                                        <option key={kazi.kaziId} value={kazi.kaziId}>
                                             {kazi.name} ({kazi.district}, {kazi.upazila})
                                         </option>
                                     ))}

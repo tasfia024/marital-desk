@@ -52,7 +52,7 @@ const KaziApplication = () => {
 
             {error && <div className="text-red-600 mb-4">{error}</div>}
             {loading ? (
-                <div>Loading...</div>
+                <div className="text-center">Loading...</div>
             ) : (
                 <section>
                     <div className="overflow-x-auto bg-white rounded-lg shadow">
