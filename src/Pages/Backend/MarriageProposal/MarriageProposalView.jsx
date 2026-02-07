@@ -61,6 +61,18 @@ const MarriageProposalView = () => {
         }
     };
 
+    const calculateAge = (dob) => {
+        if (!dob) return null;
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
     if (loading) {
         return (
             <main className="flex-1 p-10">
@@ -167,6 +179,22 @@ const MarriageProposalView = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Date of Birth</label>
+                            <p className="p-3 bg-gray-50 rounded">{groomUser?.dob ? new Date(groomUser.dob).toLocaleDateString() : "N/A"}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
+                            <p className="p-3 bg-gray-50 rounded">{groomUser?.dob ? calculateAge(groomUser.dob) + " years" : (groomUser?.age || "N/A")}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">NID</label>
+                            <p className="p-3 bg-gray-50 rounded">{groomUser?.nid || "N/A"}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Gender</label>
+                            <p className="p-3 bg-gray-50 rounded">{groomUser?.gender || "N/A"}</p>
+                        </div>
+                        <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1">Father's Name</label>
                             <p className="p-3 bg-gray-50 rounded">{proposal.groomFather}</p>
                         </div>
@@ -238,6 +266,22 @@ const MarriageProposalView = () => {
                         )}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Date of Birth</label>
+                            <p className="p-3 bg-gray-50 rounded">{brideUser?.dob ? new Date(brideUser.dob).toLocaleDateString() : "N/A"}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
+                            <p className="p-3 bg-gray-50 rounded">{brideUser?.dob ? calculateAge(brideUser.dob) + " years" : (brideUser?.age || "N/A")}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">NID</label>
+                            <p className="p-3 bg-gray-50 rounded">{brideUser?.nid || "N/A"}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Gender</label>
+                            <p className="p-3 bg-gray-50 rounded">{brideUser?.gender || "N/A"}</p>
+                        </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1">Father's Name</label>
                             <p className="p-3 bg-gray-50 rounded">{proposal.brideFather}</p>
