@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, use } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { apiClient } from "../../../config/api";
 import { AuthContext } from '../../../Provider/AuthContext';
 import { BASE_URL } from '../../../config/baseUrl';
@@ -8,6 +8,7 @@ import { BASE_URL } from '../../../config/baseUrl';
 const MarriageProposalForm = () => {
     const { user } = use(AuthContext);
     const navigate = useNavigate();
+    const { id } = useParams();
 
     // Determine if current user is groom or bride
     const isGroom = user?.gender?.toLowerCase() === 'male';
@@ -33,6 +34,7 @@ const MarriageProposalForm = () => {
         kaziId: "",
     });
 
+    const [existingProposal, setExistingProposal] = useState(null);
     const [users, setUsers] = useState([]);
     const [allKazis, setAllKazis] = useState([]);
     const [filteredKazis, setFilteredKazis] = useState([]);
@@ -46,7 +48,7 @@ const MarriageProposalForm = () => {
     const [kaziSearchUpazila, setKaziSearchUpazila] = useState("");
     const [loadingMaritalStatus, setLoadingMaritalStatus] = useState(false);
 
-    // Fetch users and kazis
+    // Fetch users, kazis, and existing proposal if editing
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -58,6 +60,30 @@ const MarriageProposalForm = () => {
                 setUsers(usersRes.users || []);
                 setAllKazis(kazisRes.applications || []);
                 setFilteredKazis(kazisRes.applications || []);
+
+                // If editing, fetch existing proposal
+                if (id) {
+                    const res = await apiClient(`api/v1/marital-desk/marriage-applications/${id}`);
+                    const proposal = res.application;
+                    setExistingProposal(proposal);
+                    setForm({
+                        groomId: proposal.groomId,
+                        groomFather: proposal.groomFather,
+                        groomMother: proposal.groomMother,
+                        groomReligion: proposal.groomReligion,
+                        groomOccupation: proposal.groomOccupation,
+                        groomEducation: proposal.groomEducation,
+                        groomAddress: proposal.groomAddress,
+                        brideId: proposal.brideId,
+                        brideFather: proposal.brideFather,
+                        brideMother: proposal.brideMother,
+                        brideReligion: proposal.brideReligion,
+                        brideOccupation: proposal.brideOccupation,
+                        brideEducation: proposal.brideEducation,
+                        brideAddress: proposal.brideAddress,
+                        kaziId: proposal.kaziId,
+                    });
+                }
             } catch (err) {
                 setError("Failed to fetch data");
                 console.error(err);
@@ -66,7 +92,7 @@ const MarriageProposalForm = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [id]);
 
     // Filter kazis by district and upazila
     useEffect(() => {
@@ -179,14 +205,23 @@ const MarriageProposalForm = () => {
 
         setError("");
         try {
-            await apiClient("api/v1/marital-desk/marriage-applications", "POST", {
-                ...form,
-                proposedBy: user?.id,
-            });
+            if (id) {
+                // Check if user is the one who proposed
+                if (existingProposal && existingProposal.proposedBy !== user?.id) {
+                    setError("You can only edit proposals that you created.");
+                    return;
+                }
+                await apiClient(`api/v1/marital-desk/marriage-applications/${id}`, "PUT", form);
+            } else {
+                await apiClient("api/v1/marital-desk/marriage-applications", "POST", {
+                    ...form,
+                    proposedBy: user?.id,
+                });
+            }
             navigate("/marital-desk/marriage-proposals");
         } catch (err) {
             console.error(err);
-            setError(err.message || "Failed to create marriage proposal");
+            setError(err.message || "Failed to save marriage proposal");
         }
     };
 
@@ -203,6 +238,20 @@ const MarriageProposalForm = () => {
         );
     }
 
+    // Check if user is trying to edit someone else's proposal
+    if (id && existingProposal && existingProposal.proposedBy !== user?.id) {
+        return (
+            <main className="flex-1 p-10">
+                <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">Marriage Proposal</h2>
+                </header>
+                <section className="bg-white p-8 rounded-lg shadow-lg text-center">
+                    <p className="text-red-600 font-semibold">Error: You can only edit proposals that you created.</p>
+                </section>
+            </main>
+        );
+    }
+
     if (loading) {
         return (
             <main className="flex-1 p-10">
@@ -214,7 +263,7 @@ const MarriageProposalForm = () => {
     return (
         <main className="flex-1 p-10">
             <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Marriage Proposal Form</h2>
+                <h2 className="text-2xl font-bold">{id ? "Edit Marriage Proposal" : "New Marriage Proposal"}</h2>
                 <a href="javascript:void(0);" className="px-4 py-2 bg-gray-300 rounded font-semibold" onClick={() => navigate("/marital-desk/marriage-proposals")}>Back</a>
             </header>
 
@@ -623,7 +672,7 @@ const MarriageProposalForm = () => {
                             type="submit"
                             className="px-6 py-2 bg-green-700 text-white rounded font-semibold hover:bg-green-800"
                         >
-                            Submit Marriage Proposal
+                            {id ? "Update Proposal" : "Create Proposal"}
                         </button>
                     </div>
                 </form>
