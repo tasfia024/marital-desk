@@ -94,7 +94,7 @@ const MarriageApplication = () => {
     };
 
     const isKazi = user?.role === "kazi";
-    const isAdmin = user?.role === "admin";
+    const isAdmin = user?.role === "super-admin";
 
     return (
         <main className="flex-1 p-10">

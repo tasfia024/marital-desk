@@ -23,6 +23,7 @@ import KaziApplicationView from "../Pages/Backend/KaziApplication/KaziApplicatio
 import DivorceApplication from "../Pages/Backend/DivorceApplication/DivorceApplication";
 import MarriageCertificate from "../Pages/Backend/MarriageCertificate/MarriageCertificate";
 import ManageUser from "../Pages/Backend/ManageUser/ManageUser";
+import CertificateView from "../Pages/Backend/MarriageCertificate/CertificateView";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
             { path: 'kazi-applications/edit/:id', Component: KaziApplicationForm },
             { path: 'kazi-applications/view/:id', Component: KaziApplicationView },
             { path: 'marriage-certificates', Component: MarriageCertificate },
+            { path: 'marriage-certificates/view/:id', Component: CertificateView },
             { path: 'manage-users', Component: ManageUser },
         ]
     }
