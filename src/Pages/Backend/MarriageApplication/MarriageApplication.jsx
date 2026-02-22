@@ -130,7 +130,7 @@ const MarriageApplication = () => {
                             <tbody>
                                 {proposals.map((proposal, idx) => {
                                     const canEditByKazi = isKazi && proposal.approvalStatus !== "checked" && proposal.approvalStatus !== "rejected";
-                                    const showKaziActions = isKazi && proposal.proposalStatus === "accepted" && proposal.approvalStatus !== "checked" && proposal.approvalStatus !== "rejected";
+                                    const showKaziActions = isKazi && proposal.proposalStatus === "accepted" && proposal.approvalStatus !== "checked" && proposal.approvalStatus !== "approved" && proposal.approvalStatus !== "rejected";
                                     const showAdminActions = isAdmin && proposal.approvalStatus === "checked" && proposal.approvalStatus !== "approved";
 
                                     return (
