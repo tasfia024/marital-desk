@@ -17,9 +17,11 @@ const UpdateProfile = () => {
         nid: "",
         address: "",
         image: "",
+        signature: "",
     });
 
     const [imageFile, setImageFile] = useState(null);
+    const [signatureFile, setSignatureFile] = useState(null);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -36,6 +38,7 @@ const UpdateProfile = () => {
                     nid: u.nid || "",
                     address: u.address || "",
                     image: u.image || "",
+                    signature: u.signature || "",
                 });
             })
             .catch(() => setError("Failed to load profile"));
@@ -64,6 +67,10 @@ const UpdateProfile = () => {
 
             if (imageFile) {
                 formData.append("image", imageFile);
+            }
+
+            if (signatureFile) {
+                formData.append("signature", signatureFile);
             }
 
             // formData.append("dob", form.dob);
@@ -179,17 +186,31 @@ const UpdateProfile = () => {
                             placeholder="Address"
                         />
                     </div>
+                </div>
 
+                <div className="grid md:grid-cols-2 gap-6 mt-2">
                     <div className="md:col-span-1">
                         <label className="block font-medium mb-1 text-green-900">Photo <span className="text-red-600">*</span></label>
-                        {form.image && !imageFile && (
-                            <img src={`${BASE_URL}${form.image}`} alt="Current" crossOrigin="anonymous" className="h-24 mb-2 rounded border" />
-                        )}
-                        <input className="border rounded p-2 w-full"
+                        <input className="border rounded p-2 mb-1 w-full"
                             type="file"
                             accept="image/*"
                             onChange={(e) => setImageFile(e.target.files[0])}
                         />
+                        {form.image && !imageFile && (
+                            <img src={`${BASE_URL}${form.image}`} alt="Current" crossOrigin="anonymous" className="h-24 mb-2 rounded border" />
+                        )}
+                    </div>
+
+                    <div className="md:col-span-1">
+                        <label className="block font-medium mb-1 text-green-900">Signature</label>
+                        <input className="border rounded p-2 mb-1 w-full"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setSignatureFile(e.target.files[0])}
+                        />
+                        {form.signature && !signatureFile && (
+                            <img src={`${BASE_URL}${form.signature}`} alt="Current" crossOrigin="anonymous" className="h-24 mb-2 rounded border" />
+                        )}
                     </div>
                 </div>
 

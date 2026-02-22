@@ -31,8 +31,8 @@ const KaziApplicationView = () => {
             <section className="bg-white p-8 rounded-lg shadow-lg w-full">
                 <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
                     <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-green-700 bg-gray-100 flex items-center justify-center">
-                        {kazi.photo ? (
-                            <img src={`${BASE_URL}${kazi.photo}`} alt="Kazi" crossOrigin="anonymous" className="w-full h-full object-cover" />
+                        {kazi?.kaziUser?.image ? (
+                            <img src={`${BASE_URL}${kazi.kaziUser.image}`} alt="Kazi" crossOrigin="anonymous" className="w-full h-full object-cover" />
                         ) : (
                             <span className="text-gray-400">No Photo</span>
                         )}
@@ -92,6 +92,16 @@ const KaziApplicationView = () => {
                         <tr>
                             <td className="p-3 font-medium text-green-900">Office Address</td>
                             <td className="p-3 text-gray-900">{kazi.officeAddress}</td>
+                        </tr>
+                        <tr>
+                            <td className="p-3 font-medium text-green-900">Signature</td>
+                            <td className="p-3 text-gray-900">
+                                {kazi?.kaziUser?.signature ? (
+                                    <img src={`${BASE_URL}${kazi.kaziUser.signature}`} alt="Kazi Signature" crossOrigin="anonymous" className="h-18 w-50 mb-2 rounded border" />
+                                ) : (
+                                    <span className="text-gray-400">No Signature</span>
+                                )}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

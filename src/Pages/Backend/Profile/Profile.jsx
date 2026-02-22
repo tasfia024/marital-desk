@@ -82,6 +82,14 @@ const Profile = () => {
                             <td className="p-3 font-medium text-green-900">Address</td>
                             <td className="p-3 text-gray-900">: {userData.address}</td>
                         </tr>
+                        <tr className="bg-gray-50">
+                            <td className="p-3 font-medium text-green-900">Signature</td>
+                            <td className="p-3 text-gray-900">
+                                {userData.signature && (
+                                    <img src={`${BASE_URL}${userData.signature}`} alt="Current" crossOrigin="anonymous" className="h-18 w-50 mb-2 rounded border" />
+                                )}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </section>

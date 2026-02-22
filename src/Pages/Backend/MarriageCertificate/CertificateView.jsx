@@ -143,7 +143,7 @@ const CertificateView = () => {
                 <div className="px-8 py-8 md:px-12 md:py-12 bg-white relative">
                     <div className="space-y-4 text-xl leading-relaxed">
                         {/* Certification Text and Photos */}
-                        <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center justify-between mb-4">
                             {/* Certification Text - Centered */}
                             <div className="absolute left-1/2 transform -translate-x-1/2">
                                 <p className="text-center font-semibold text-2xl italic text-[#0a7d2c] whitespace-nowrap">
@@ -224,9 +224,15 @@ const CertificateView = () => {
                             </p>
                         </div>
 
-                        <div className="mt-12 flex flex-col md:flex-row justify-between items-end gap-12">
+                        <div className="mt-8 flex flex-col md:flex-row justify-between items-end gap-12">
                             <div className="text-center">
-                                <p className="italic text-gray-700 mb-10 text-lg">"May they live happily ever after"</p>
+                                <p className="italic text-gray-700 mb-5 text-lg">"May they live happily ever after"</p>
+
+                                <div>
+                                    {application?.kaziUser?.signature && (
+                                        <img src={`${BASE_URL}${application.kaziUser.signature}`} alt="Kazi Signature" crossOrigin="anonymous" className="h-14 w-50 mb-1 m-auto" />
+                                    )}
+                                </div>
                                 <div className="w-48 h-0.5 bg-gray-800 mx-auto mb-2"></div>
                                 <p className="font-bold text-2xl">{kazi?.name || 'Kazi Name'}</p>
                                 <p className="text-lg font-semibold text-[#0a7d2c]">Muslim Marriage Registrar & Kazi</p>
