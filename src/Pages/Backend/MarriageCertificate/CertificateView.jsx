@@ -183,10 +183,10 @@ const CertificateView = () => {
                         <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-x-4 gap-y-5">
                             <div className="font-semibold whitespace-nowrap">Groom:</div>
                             <div>
-                                <span className="font-bold">{groomUser?.name}</span> Son of{' '}
-                                <span className="font-bold">{application?.groomFather}</span>
+                                <span className="font-bold">{groomUser?.name?.toUpperCase()}</span> Son of{' '}
+                                <span className="font-bold">{application?.groomFather?.toUpperCase()}</span>
                                 {' '} and {' '}
-                                <span className="font-bold">{application?.groomMother}</span>
+                                <span className="font-bold">{application?.groomMother?.toUpperCase()}</span>
                                 <br />
                                 of {application?.groomAddress || groomUser?.address}
                                 <br />
@@ -197,8 +197,8 @@ const CertificateView = () => {
 
                             <div className="font-semibold mt-4">Married with:</div>
                             <div>
-                                <span className="font-bold">{brideUser?.name} </span>Daughter of <span className="font-bold">{application?.brideFather}</span> and{' '}
-                                <span className="font-bold">{application?.brideMother}</span>
+                                <span className="font-bold">{brideUser?.name?.toUpperCase()} </span>Daughter of <span className="font-bold">{application?.brideFather?.toUpperCase()}</span> and{' '}
+                                <span className="font-bold">{application?.brideMother?.toUpperCase()}</span>
                                 <br />
                                 of {application?.brideAddress || brideUser?.address}
                                 <br />
