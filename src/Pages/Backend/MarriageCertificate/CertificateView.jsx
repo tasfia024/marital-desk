@@ -107,42 +107,47 @@ const CertificateView = () => {
 
     return (
         <div>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&display=swap');
+                .certificate-serif {
+                    font-family: 'Crimson Text', Georgia, serif;
+                }
+            `}</style>
             <div
                 ref={certificateRef}
-                className="max-w-4xl mx-auto  bg-white shadow-2xl border-4 border-[#0a7d2c] rounded-sm font-serif overflow-hidden"
+                className="max-w-4xl mx-auto bg-white shadow-2xl border-4 border-[#0a7d2c] rounded-sm certificate-serif overflow-hidden"
             >
                 {/* Header border simulation */}
-                <div className="relative border-b-4 border-[#0a7d2c] pb-1">
+                <div className="relative border-b-4 border-[#0a7d2c] pb-2">
                     <div className="absolute inset-0 opacity-[0.07] pointer-events-none select-none text-[8rem] leading-none font-black text-center text-green-900">
                         গণপ্রজাতন্ত্রী বাংলাদেশ
                     </div>
 
-                    <div className="text-center pt-6 pb-4 px-10 bg-gradient-to-b from-blue-50 to-white">
-                        <h1 className="text-2xl md:text-3xl font-bold text-[#0a7d2c] tracking-wide">
+                    <div className="text-center pt-8 pb-6 px-10 bg-gradient-to-b from-blue-50 to-white">
+                        <h1 className="text-2xl md:text-3xl font-semibold text-[#0a7d2c] tracking-wide">
                             Government of the People's Republic of Bangladesh
                         </h1>
-                        <p className="text-lg font-semibold mt-1">
+                        <p className="text-base font-semibold mt-2">
                             Office of The Muslim Marriage & Divorce Registrar & Kazi
                         </p>
-                        {/* <p className="text-base mt-1 font-medium">{wardNo}</p> */}
 
-                        <div className="w-48 h-1 bg-gradient-to-r from-transparent via-green-700 to-transparent mx-auto my-3"></div>
+                        <div className="w-48 h-px bg-gradient-to-r from-transparent via-[#0a7d2c] to-transparent mx-auto my-4"></div>
 
-                        <h2 className="text-4xl md:text-5xl font-bold text-orange-700 mt-4 tracking-wider uppercase">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#0a7d2c] mt-4 tracking-wider">
                             MARRIAGE CERTIFICATE
                         </h2>
                     </div>
                 </div>
 
                 {/* Main content */}
-                <div className="pl-8 pb-8 pr-8 pt-4 md:pl-12 md:pr-12 md:pb-12 bg-white relative">
-                    <div className="space-y-5 text-lg leading-relaxed">
+                <div className="px-8 py-8 md:px-12 md:py-12 bg-white relative">
+                    <div className="space-y-4 text-xl leading-relaxed">
                         {/* Certification Text and Photos */}
                         <div className="flex items-center justify-between mb-8">
                             {/* Certification Text - Centered */}
                             <div className="absolute left-1/2 transform -translate-x-1/2">
-                                <p className="text-center font-semibold text-xl underline decoration-2 decoration-green-800 whitespace-nowrap">
-                                    This is to certify that,
+                                <p className="text-center font-semibold text-2xl italic text-[#0a7d2c] whitespace-nowrap">
+                                    This is to certify that
                                 </p>
                             </div>
 
@@ -154,10 +159,10 @@ const CertificateView = () => {
                                         <img
                                             src={`${BASE_URL}${groomUser.image}`}
                                             alt="Groom" crossOrigin="anonymous"
-                                            className="w-25 h-30 object-cover border-4 border-gray-400 rounded-sm shadow-md"
+                                            className="w-28 h-36 object-cover border-4 border-[#0a7d2c] rounded-sm shadow-md"
                                         />
                                     ) : (
-                                        <div className="w-25 h-30 border-4 border-gray-400 rounded-sm bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
+                                        <div className="w-28 h-36 border-4 border-[#0a7d2c] rounded-sm bg-gray-300 flex items-center justify-center text-gray-600 text-xs">
                                             No Photo
                                         </div>
                                     )}
@@ -169,10 +174,10 @@ const CertificateView = () => {
                                         <img
                                             src={`${BASE_URL}${brideUser.image}`}
                                             alt="Bride" crossOrigin="anonymous"
-                                            className="w-25 h-30 object-cover border-4 border-gray-400 rounded-sm shadow-md"
+                                            className="w-28 h-36 object-cover border-4 border-[#0a7d2c] rounded-sm shadow-md"
                                         />
                                     ) : (
-                                        <div className="w-25 h-30 border-4 border-gray-400 rounded-sm bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
+                                        <div className="w-28 h-36 border-4 border-[#0a7d2c] rounded-sm bg-gray-300 flex items-center justify-center text-gray-600 text-xs">
                                             No Photo
                                         </div>
                                     )}
@@ -180,58 +185,53 @@ const CertificateView = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-x-4 gap-y-5">
-                            <div className="font-semibold whitespace-nowrap">Groom:</div>
-                            <div>
-                                <span className="font-bold">{groomUser?.name?.toUpperCase()}</span> Son of{' '}
-                                <span className="font-bold">{application?.groomFather?.toUpperCase()}</span>
-                                {' '} and {' '}
-                                <span className="font-bold">{application?.groomMother?.toUpperCase()}</span>
+                        <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-x-6 gap-y-3">
+                            <div className="font-bold text-lg text-[#0a7d2c] whitespace-nowrap">The Bridegroom:</div>
+                            <div className="text-lg leading-relaxed">
+                                <span className="font-bold">{groomUser?.name?.toUpperCase()}</span>, Son of{' '}
+                                <span className="font-bold">{application?.groomFather?.toUpperCase() || 'N/A'}</span>
+                                {' '}and{' '}
+                                <span className="font-bold">{application?.groomMother?.toUpperCase() || 'N/A'}</span>
                                 <br />
-                                of {application?.groomAddress || groomUser?.address}
+                                of {application?.groomAddress || groomUser?.address || 'N/A'}
                                 <br />
-                                Date of Birth: <span className="font-medium">{groomUser?.dob ? new Date(groomUser.dob).toLocaleDateString() : "N/A"}</span>
+                                Date of Birth: <span className="font-semibold">{groomUser?.dob ? new Date(groomUser.dob).toLocaleDateString('en-GB') : "N/A"}</span>
                                 <br />
-                                NID No.: <span className="font-medium">{groomUser?.nid || "N/A"}</span>
+                                National ID No.: <span className="font-mono font-semibold">{groomUser?.nid || "N/A"}</span>
                             </div>
 
-                            <div className="font-semibold mt-4">Married with:</div>
-                            <div>
-                                <span className="font-bold">{brideUser?.name?.toUpperCase()} </span>Daughter of <span className="font-bold">{application?.brideFather?.toUpperCase()}</span> and{' '}
-                                <span className="font-bold">{application?.brideMother?.toUpperCase()}</span>
+                            <div className="font-bold text-lg text-[#0a7d2c] mt-4">Has married:</div>
+                            <div className="mt-4 text-lg leading-relaxed">
+                                <span className="font-bold">{brideUser?.name?.toUpperCase()}</span>, Daughter of <span className="font-bold">{application?.brideFather?.toUpperCase() || 'N/A'}</span> and{' '}
+                                <span className="font-bold">{application?.brideMother?.toUpperCase() || 'N/A'}</span>
                                 <br />
-                                of {application?.brideAddress || brideUser?.address}
+                                of {application?.brideAddress || brideUser?.address || 'N/A'}
                                 <br />
-                                Date of Birth: <span className="font-medium">{brideUser?.dob ? new Date(brideUser.dob).toLocaleDateString() : "N/A"}</span>
+                                Date of Birth: <span className="font-semibold">{brideUser?.dob ? new Date(brideUser.dob).toLocaleDateString('en-GB') : "N/A"}</span>
                                 <br />
-                                NID No.: <span className="font-medium">{brideUser?.nid || "N/A"}</span>
+                                National ID No.: <span className="font-mono font-semibold">{brideUser?.nid || "N/A"}</span>
                             </div>
                         </div>
 
-                        <div className="pt-6 border-t border-gray-300">
-                            <p>
-                                The marriage was solemnized on <strong>{application?.marriageDate ? new Date(application.marriageDate).toLocaleDateString() : "N/A"}</strong>{' '}
-                                and registration was solemnized on <strong>{application?.approvalDate ? new Date(application.approvalDate).toLocaleDateString() : "N/A"}</strong>
+                        <div className="pt-6 border-t-2 border-[#0a7d2c]">
+                            <p className="mb-3 text-lg leading-relaxed">
+                                The marriage was solemnized on <strong>{application?.marriageDate ? new Date(application.marriageDate).toLocaleDateString('en-GB') : "N/A"}</strong>{' '}
+                                and registered on <strong>{application?.approvalDate ? new Date(application.approvalDate).toLocaleDateString('en-GB') : "N/A"}</strong>.
                             </p>
-                            <p className="mt-4">
-                                in my office and registered in <strong>Volume No. {volumeNo}</strong>, Book No.{' '}
-                                <strong>{bookNo}</strong>, Serial No. <strong>{generateCertificateNumber(groomUser, brideUser)}</strong> in the year{' '}
-                                <strong>{application?.approvalDate ? new Date(application.approvalDate).getFullYear() : ""}</strong>
+                            <p className="text-lg leading-relaxed">
+                                This marriage has been registered in <strong>Volume No. {volumeNo}</strong>, <strong>Book No. {bookNo}</strong>,
+                                <strong> Serial No. {generateCertificateNumber(groomUser, brideUser)}</strong>, in the year <strong>{application?.approvalDate ? new Date(application.approvalDate).getFullYear() : ""}</strong>.
                             </p>
                         </div>
 
                         <div className="mt-12 flex flex-col md:flex-row justify-between items-end gap-12">
                             <div className="text-center">
-                                <p className="italic text-gray-700">I wish them every success in life</p>
-                                <div className="mt-10">
-                                    <div className="w-48 h-0.5 bg-black mx-auto mb-1"></div>
-                                    <p className="font-semibold">{kazi?.name}</p>
-                                    <p className="text-sm text-gray-600">Muslim Marriage & Divorce Registrar</p>
-                                    <p className="text-sm text-gray-600">
-                                        {kazi?.officeAddress || kazi?.address || "N/A"}
-                                    </p>
-                                    <p className="text-sm text-gray-600">Reg. No. {kazi?.registrationNo || "N/A"}</p>
-                                </div>
+                                <p className="italic text-gray-700 mb-10 text-lg">"May they live happily ever after"</p>
+                                <div className="w-48 h-0.5 bg-gray-800 mx-auto mb-2"></div>
+                                <p className="font-bold text-2xl">{kazi?.name || 'Kazi Name'}</p>
+                                <p className="text-lg font-semibold text-[#0a7d2c]">Muslim Marriage Registrar & Kazi</p>
+                                <p className="text-base text-gray-600 mt-1">{kazi?.officeAddress || kazi?.address || "N/A"}</p>
+                                <p className="text-base text-gray-600">Reg. No. {kazi?.registrationNo || "N/A"}</p>
                             </div>
 
                             {/* Right side - attested & stamps */}
@@ -239,14 +239,14 @@ const CertificateView = () => {
                                 <p className="font-bold text-xl italic text-blue-800 rotate-[-8deg] transform origin-bottom-right">
                                     ATTESTED
                                 </p>
-                                <p className="text-sm font-medium">Date of Issue: {application?.approvalDate ? new Date(application.approvalDate).toLocaleDateString() : ""}</p>
+                                <p className="text-lg font-medium">Date of Issue: {application?.approvalDate ? new Date(application.approvalDate).toLocaleDateString('en-GB') : ""}</p>
 
                                 <div className="relative inline-block mt-4">
                                     <div className="w-40 h-40 rounded-full border-8 border-blue-700/70 flex items-center justify-center rotate-[-6deg] opacity-80">
                                         <div className="text-center">
                                             <div className="text-xs font-bold">GOVT. OF BANGLADESH</div>
                                             <div className="text-lg font-black mt-1">REGISTERED</div>
-                                            <div className="text-xs mt-1">{application?.approvalDate ? new Date(application.approvalDate).toLocaleDateString() : ""}</div>
+                                            <div className="text-xs mt-1">{application?.approvalDate ? new Date(application.approvalDate).toLocaleDateString('en-GB') : ""}</div>
                                         </div>
                                     </div>
                                     <div className="absolute inset-0 flex items-center justify-center text-blue-800/40 font-black text-5xl rotate-[-10deg]">
@@ -258,7 +258,7 @@ const CertificateView = () => {
                     </div>
                 </div>
 
-                <div className="h-4 bg-gradient-to-t from-[#0a7d2c] to-green-900"></div>
+                <div className="h-4 bg-gradient-to-t from-[#0a7d2c] to-green-800"></div>
             </div>
 
             {/* Download button */}
@@ -268,7 +268,7 @@ const CertificateView = () => {
                     disabled={isGenerating}
                     className={`inline-flex items-center gap-2 px-8 py-4 text-white font-semibold rounded-lg shadow-lg transition-colors text-lg ${isGenerating
                         ? 'bg-green-500 cursor-wait'
-                        : 'bg-green-700 hover:bg-green-800'
+                        : 'bg-[#0a7d2c] hover:bg-[#006d24]'
                         }`}
                 >
                     {isGenerating ? (
