@@ -1,12 +1,15 @@
 import React, { use, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { AuthContext } from '../../../Provider/AuthContext';
+import { apiClient } from "../../../config/api";
 
 const Payment = () => {
     const { user } = use(AuthContext)
     const navigate = useNavigate()
+    const { id: marriageApplicationId } = useParams()
     const [isProcessing, setIsProcessing] = useState(false)
     const [showDetails, setShowDetails] = useState(true)
+    const [error, setError] = useState(null)
 
     const paymentDetails = {
         registryFee: 700,
@@ -25,25 +28,38 @@ const Payment = () => {
     }
 
     const handlePayment = async () => {
-        setIsProcessing(true) // Add this to show processing state
+        setIsProcessing(true)
+        setError(null)
+
         try {
-            const paymentInfo = {
-                price: 20.30,
-                userName: user?.displayName,
-                userEmail: user?.email
+            if (!user?.name || !user?.email) {
+                setError("User information is missing. Please log in again.")
+                setIsProcessing(false)
+                return
             }
 
-            const res = await apiClient("api/v1/marital-desk/marriage-applications", "POST", paymentInfo);
-            // checkout url
-            console.log('Session created:', res.data)
+            const paymentInfo = {
+                price: calculateTotal(),
+                userName: user?.name,
+                userEmail: user?.email,
+                marriageApplicationId: marriageApplicationId
+            }
+
+            console.log('Initiating payment with:', paymentInfo)
+
+            const res = await apiClient("api/v1/marital-desk/marriage-applications/checkout", "POST", paymentInfo)
+
+            console.log('Checkout response:', res.data)
 
             // Redirect to Stripe Checkout
-            if (res.data.url) {
-                window.location.href = res.data.url
+            if (res.url) {
+                window.location.href = res.url
+            } else {
+                setError("Failed to initiate payment. Please try again.")
             }
         } catch (error) {
             console.error('Payment error:', error)
-        } finally {
+            setError(error?.response?.message || 'Payment initiation failed. Please try again.')
             setIsProcessing(false)
         }
     }
@@ -62,6 +78,13 @@ const Payment = () => {
                 </div>
 
                 <div className='p-6 md:p-8'>
+                    {/* Error Message */}
+                    {error && (
+                        <div className='mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg'>
+                            <p className='text-red-700 dark:text-red-300'>{error}</p>
+                        </div>
+                    )}
+
                     {/* Payment Summary */}
                     <div className='mb-8'>
                         <div className='flex items-center justify-between mb-6'>
@@ -299,7 +322,7 @@ const Payment = () => {
                             onClick={handlePayment}
                             disabled={isProcessing}
                             className={`flex-1 btn ${isProcessing
-                                ? 'bg-gray-400'
+                                ? 'bg-gray-400 cursor-not-allowed'
                                 : 'bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700'
                                 } text-white font-bold py-4 rounded-xl transition-all duration-300 ${!isProcessing && 'hover:scale-[1.02]'
                                 }`}

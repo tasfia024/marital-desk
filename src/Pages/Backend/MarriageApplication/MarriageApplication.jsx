@@ -99,6 +99,7 @@ const MarriageApplication = () => {
 
     const isKazi = user?.role === "kazi";
     const isAdmin = user?.role === "super-admin";
+    const isGroomBride = user?.role === "user";
 
     return (
         <main className="flex-1 p-10">
@@ -161,13 +162,14 @@ const MarriageApplication = () => {
                                                 >
                                                     View
                                                 </button>
-
-                                                <button
-                                                    className="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
-                                                    onClick={() => handlePayment(proposal.id)}
-                                                >
-                                                    Pay
-                                                </button>
+                                                {!proposal.isPaid && isGroomBride && (
+                                                    <button
+                                                        className="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
+                                                        onClick={() => handlePayment(proposal.id)}
+                                                    >
+                                                        Pay
+                                                    </button>
+                                                )}
 
                                                 {/* Kazi Actions */}
                                                 {showKaziActions && (
@@ -194,7 +196,7 @@ const MarriageApplication = () => {
                                                 )}
 
                                                 {/* Admin Final Approval */}
-                                                {showAdminActions && (
+                                                {showAdminActions && proposal.isPaid && (
                                                     <button
                                                         className="px-2 py-1 bg-green-700 text-white text-xs rounded hover:bg-green-800"
                                                         onClick={() => handleAdminApprove(proposal.id)}

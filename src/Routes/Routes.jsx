@@ -26,6 +26,8 @@ import ManageUser from "../Pages/Backend/ManageUser/ManageUser";
 import CertificateView from "../Pages/Backend/MarriageCertificate/CertificateView";
 
 import Payment from "../Pages/Backend/Payment/Payment";
+import PaymentSuccess from "../Pages/Backend/Payment/PaymentSuccess";
+import PaymentCancel from "../Pages/Backend/Payment/PaymentCancel";
 
 const router = createBrowserRouter([
     {
@@ -71,7 +73,8 @@ const router = createBrowserRouter([
             { path: 'marriage-applications/edit/:id', Component: MarriageApplicationForm },
             { path: 'marriage-applications/view/:id', Component: MarriageApplicationView },
             { path: 'marriage-applications/payment/:id', Component: Payment },
-
+            { path: 'marriage-applications/payment/success', Component: PaymentSuccess },
+            { path: 'marriage-applications/payment/cancel', Component: PaymentCancel },
             { path: 'divorce-applications', Component: DivorceApplication },
             { path: 'kazi-applications', Component: KaziApplication },
             { path: 'kazi-applications/new', Component: KaziApplicationForm },
