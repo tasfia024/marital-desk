@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import logoImg from '../../assets/Maritaldesk-light.png'
+import logoImg from '../../assets/maritaldesk-light.png'
 import { AuthContext } from '../../Provider/AuthContext';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
