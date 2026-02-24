@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import logoDarkImg from '../../assets/maritaldesk-light.png'
+import logoDarkImg from '../../assets/MaritalDesk-light.png'
 import { Link } from 'react-router';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
