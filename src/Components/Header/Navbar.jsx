@@ -22,11 +22,11 @@ const Navbar = () => {
     const links = <>
         <li className="text-lg text-green-800 font-bold"><NavLink
             to='/'
-            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>Home</NavLink></li>
+            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : 'text-green-800 dark:text-green-200'}>Home</NavLink></li>
 
         <li className='text-lg text-green-800 font-bold'><NavLink
             to='/services'
-            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>
+            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : 'text-green-800 dark:text-green-200'}>
             <div className="dropdown">
                 <div tabIndex={0} role="button" className=" mx-1">Services</div>
                 {/* <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm text-green-900">
@@ -49,7 +49,20 @@ const Navbar = () => {
 
         <li className='text-lg text-green-800 font-bold'><NavLink
             to='/about'
-            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : ''}>About Us</NavLink></li>
+            className={({ isActive }) => isActive ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white' : 'text-green-800 dark:text-green-200'}>About Us</NavLink></li>
+
+        <li className='text-lg font-bold'>
+            <NavLink
+                to='/contact'
+                className={({ isActive }) =>
+                    isActive
+                        ? 'btn bg-gradient-to-r from-[#013223] to-[#006747] text-white'
+                        : 'text-green-800 dark:text-green-200'
+                }
+            >
+                Contact
+            </NavLink>
+        </li>
 
         {
             user && user.email ? <li className='text-lg text-green-800 font-bold'><NavLink

@@ -7,6 +7,7 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import About from "../Pages/About/About";
+import ContactUs from "../Pages/ContactUS/ContactUs";
 import Services from "../Pages/Services/Services";
 import Profile from "../Pages/Backend/Profile/Profile";
 import UpdateProfile from "../Pages/Backend/Profile/UpdateProfile";
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         children: [
             { index: true, Component: Home },
             { path: '/about', Component: About },
+            {
+                path: '/contact',
+                Component: ContactUs
+            },
             { path: '/services', Component: Services },
             { path: '/profile', Component: Profile },
             {
