@@ -35,6 +35,10 @@ const MarriageApplication = () => {
         navigate(`/marital-desk/marriage-applications/view/${id}`);
     };
 
+    const handlePayment = (id) => {
+        navigate(`/marital-desk/marriage-applications/payment/${id}`);
+    };
+
     // New: Kazi check/approval
     const handleKaziCheck = async (id) => {
         if (!window.confirm("Check and approve this marriage application? This will lock it for further edits.")) return;
@@ -156,6 +160,13 @@ const MarriageApplication = () => {
                                                     onClick={() => handleView(proposal.id)}
                                                 >
                                                     View
+                                                </button>
+
+                                                <button
+                                                    className="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
+                                                    onClick={() => handlePayment(proposal.id)}
+                                                >
+                                                    Pay
                                                 </button>
 
                                                 {/* Kazi Actions */}
