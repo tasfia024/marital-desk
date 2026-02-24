@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import { toast } from 'react-toastify';
 import { apiClient } from "../../../config/api";
 import { BASE_URL } from '../../../config/baseUrl';
+import logoImg from '../../../assets/Maritaldesk.png';
 
 const CertificateView = () => {
     const { id } = useParams();
@@ -119,6 +120,14 @@ const CertificateView = () => {
             >
                 {/* Header border simulation */}
                 <div className="relative border-b-4 border-[#0a7d2c] pb-2">
+                    <div className="absolute top-12 left-4 z-10">
+                        <img
+                            src={logoImg}
+                            alt="Maritaldesk Logo"
+                            className="h-20 w-auto"
+                        />
+                    </div>
+
                     <div className="absolute inset-0 opacity-[0.07] pointer-events-none select-none text-[8rem] leading-none font-black text-center text-green-900">
                         গণপ্রজাতন্ত্রী বাংলাদেশ
                     </div>
