@@ -25,6 +25,7 @@ const KaziApplicationForm = () => {
         district: "",
         upazila: "",
         photo: user?.image || "",
+        kaziId: user?.id || null,
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);

@@ -129,6 +129,7 @@ const MarriageApplication = () => {
                                     <th className="p-3 text-left">Kazi</th>
                                     <th className="p-3 text-left">Proposal Status</th>
                                     <th className="p-3 text-left">Approval Status</th>
+                                    <th className="p-3 text-left">Payment Status</th>
                                     <th className="p-3 text-center">Action</th>
                                 </tr>
                             </thead>
@@ -153,6 +154,11 @@ const MarriageApplication = () => {
                                             <td className="p-3">
                                                 <span className={`inline-block px-2 py-1 rounded-full text-xs font-semibold ${getApprovalStatusBadge(proposal.approvalStatus)}`}>
                                                     {proposal.approvalStatus}
+                                                </span>
+                                            </td>
+                                            <td className="p-3">
+                                                <span className="inline-block px-2 py-1 rounded-full text-xs font-semibold">
+                                                    {proposal.isPaid ? 'Paid' : 'Unpaid'}
                                                 </span>
                                             </td>
                                             <td className="p-3 text-center space-x-1 flex justify-center flex-wrap gap-1">
