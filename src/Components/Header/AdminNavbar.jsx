@@ -5,6 +5,7 @@ import { AuthContext } from '../../Provider/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { User, LogOut, Sun, Moon, Menu } from 'lucide-react'
 import { Link } from 'react-router-dom' // Ensure this is 'react-router-dom'
+import { BASE_URL } from '../../config/baseUrl';
 
 const AdminNavbar = ({ onSidebarToggle }) => {
   const { user, logout } = use(AuthContext)
@@ -87,10 +88,11 @@ const AdminNavbar = ({ onSidebarToggle }) => {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className='flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all'
               >
-                <div className="relative w-8 h-8">
-                  {user?.photoURL ? (
+                <div className="relative w-10 h-8">
+                  {user?.image ? (
                     <img
-                      src={user.photoURL}
+                      src={`${BASE_URL}${user.image}`}
+                      crossOrigin="anonymous"
                       alt='profile'
                       className='rounded-full w-10 h-10 object-cover border border-gray-200 dark:border-gray-700'
                     />

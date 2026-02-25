@@ -6,6 +6,7 @@ import { AuthContext } from '../../Provider/AuthContext'
 import { toast } from 'react-toastify'
 import { Sun, Moon } from 'lucide-react'
 import { FaUserCircle } from 'react-icons/fa';
+import { BASE_URL } from '../../config/baseUrl';
 
 const Navbar = () => {
   const { user, logout } = use(AuthContext)
@@ -197,9 +198,10 @@ const Navbar = () => {
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                   className='flex items-center gap-2 p-1.5 rounded-full  hover:bg-gray-500 dark:hover:bg-gray-800 transition-all duration-200'
                 >
-                  {user.photoURL ? (
+                  {user.image ? (
                     <img
-                      src={user.photoURL}
+                      src={`${BASE_URL}${user.image}`}
+                      crossOrigin="anonymous"
                       alt='user'
                       referrerPolicy='no-referrer'
                       className='rounded-full w-10 h-10 border-2 border-white dark:border-gray-700 object-cover'
@@ -237,17 +239,6 @@ const Navbar = () => {
 
                     {/* Menu Items */}
                     <div className='py-2'>
-                      <Link
-                        to='/profile'
-                        className='flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors'
-                        onClick={() => setIsProfileOpen(false)}
-                      >
-                        <div className='w-6 h-6 flex items-center justify-center'>
-                          👤
-                        </div>
-                        <span>Profile</span>
-                      </Link>
-
                       <Link
                         to='/marital-desk/dashboard'
                         className='flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors'
