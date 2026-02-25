@@ -3,7 +3,7 @@ import { useSearchParams, Link } from 'react-router'
 import html2canvas from 'html2canvas-pro'
 import jsPDF from 'jspdf'
 import { FaDownload, FaCheckCircle, FaHome } from 'react-icons/fa';
-import logo from "../../../assets/maritaldesk.png"
+import logo from "../../../assets/MaritalDesk.png"
 import { apiClient } from "../../../config/api";
 
 const PaymentSuccess = () => {
