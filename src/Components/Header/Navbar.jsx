@@ -1,6 +1,6 @@
 import React, { use, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router'
-import logoImg from '../../assets/MaritalDesk-dark.PNG'
+import logoImg from '../../assets/MaritalDesk.png'
 import logoDark from '../../assets/maritaldesk-light.png'
 import { AuthContext } from '../../Provider/AuthContext'
 import { toast } from 'react-toastify'
