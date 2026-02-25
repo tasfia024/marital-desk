@@ -29,6 +29,7 @@ const KaziApplicationForm = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [isEditable, setIsEditable] = useState(true);
+    console.log(loading);
 
     useEffect(() => {
         if (id) {
@@ -90,87 +91,228 @@ const KaziApplicationForm = () => {
     };
 
     return (
-        <main className="flex-1 p-10">
-            <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Kazi Application Form</h2>
-                <a href="javascript:void(0);" className="px-4 py-2 bg-gray-300 rounded font-semibold" onClick={() => navigate("/marital-desk/kazi-applications")}>Back</a>
-            </header>
-            <section>
-                <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-full">
-                    {error && <div className="mb-2 text-red-600">{error}</div>}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block mb-1 font-medium">Full Name <span className="text-red-600">*</span></label>
-                            <input type="text" name="name" value={form.name} disabled className="w-full border rounded px-3 py-2 bg-gray-100 cursor-not-allowed" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Father's Name <span className="text-red-600">*</span></label>
-                            <input type="text" name="fatherName" value={form.fatherName} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Mother's Name <span className="text-red-600">*</span></label>
-                            <input type="text" name="motherName" value={form.motherName} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Date of Birth <span className="text-red-600">*</span></label>
-                            <input type="date" name="dateOfBirth" value={form.dateOfBirth} className="w-full border rounded px-3 py-2 bg-white" disabled />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Gender <span className="text-red-600">*</span></label>
-                            <select name="gender" value={form.gender} className="w-full border rounded px-3 py-2 bg-white" disabled>
-                                <option value="">Select</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Religion <span className="text-red-600">*</span></label>
-                            <input type="text" name="religion" value={form.religion} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Email <span className="text-red-600">*</span></label>
-                            <input type="email" name="email" value={form.email} disabled className="w-full border rounded px-3 py-2 bg-gray-100 cursor-not-allowed" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Phone <span className="text-red-600">*</span></label>
-                            <input type="text" name="phone" value={form.phone} disabled className="w-full border rounded px-3 py-2 bg-gray-100 cursor-not-allowed" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">NID Number <span className="text-red-600">*</span></label>
-                            <input type="text" name="nid" value={form.nid} className="w-full border rounded px-3 py-2 bg-white" disabled />
-                        </div>
-                        <div className=" md:col-span-2">
-                            <label className="block mb-1 font-medium">Present Address <span className="text-red-600">*</span></label>
-                            <input type="text" name="address" value={form.address} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div className=" md:col-span-2">
-                            <label className="block mb-1 font-medium">Office Address <span className="text-red-600">*</span></label>
-                            <input type="text" name="officeAddress" value={form.officeAddress} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">District <span className="text-red-600">*</span></label>
-                            <input type="text" name="district" value={form.district} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium">Upazila <span className="text-red-600">*</span></label>
-                            <input type="text" name="upazila" value={form.upazila} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" />
-                        </div>
-                        <div className="md:col-span-2">
-                            <label className="block mb-1 font-medium">Kazi Registration No. <span className="text-red-600">*</span></label>
-                            <input type="text" name="registrationNo" value={form.registrationNo} onChange={handleChange} className="w-full border rounded px-3 py-2 bg-white" disabled={!isEditable} />
-                        </div>
-
+    <main className="flex-1 p-4 sm:p-6 lg:p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <header className="border-b border-gray-300 dark:border-gray-700 pb-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Kazi Application Form</h2>
+            <button 
+                className="px-4 py-2 bg-gray-300 dark:bg-gray-700 dark:text-green-300 rounded font-semibold hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors w-full sm:w-auto"
+                onClick={() => navigate("/marital-desk/kazi-applications")}
+            >
+                Back
+            </button>
+        </header>
+        
+        <section>
+            <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-4 sm:p-6 lg:p-8 rounded-lg shadow-lg dark:shadow-gray-900 w-full border border-gray-200 dark:border-gray-700">
+                {error && (
+                    <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 rounded">
+                        {error}
                     </div>
-                    {isEditable && (
-                        <div className="flex justify-end gap-2 mt-6">
-                            <button type="submit" className="px-6 py-2 bg-green-700 text-white rounded font-semibold">Submit</button>
-                        </div>
-                    )}
-                </form>
-            </section>
-        </main>
-    );
+                )}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Full Name <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={form.name} 
+                            disabled 
+                            className="w-full border rounded px-3 py-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 cursor-not-allowed" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Father's Name <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="fatherName" 
+                            value={form.fatherName} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Mother's Name <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="motherName" 
+                            value={form.motherName} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Date of Birth <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            name="dateOfBirth" 
+                            value={form.dateOfBirth} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700" 
+                            disabled 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Gender <span className="text-red-600">*</span>
+                        </label>
+                        <select 
+                            name="gender" 
+                            value={form.gender} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700" 
+                            disabled
+                        >
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Religion <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="religion" 
+                            value={form.religion} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Email <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={form.email} 
+                            disabled 
+                            className="w-full border rounded px-3 py-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 cursor-not-allowed" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Phone <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="phone" 
+                            value={form.phone} 
+                            disabled 
+                            className="w-full border rounded px-3 py-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 cursor-not-allowed" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            NID Number <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="nid" 
+                            value={form.nid} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700" 
+                            disabled 
+                        />
+                    </div>
+                    
+                    <div className="md:col-span-2">
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Present Address <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="address" 
+                            value={form.address} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div className="md:col-span-2">
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Office Address <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="officeAddress" 
+                            value={form.officeAddress} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            District <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="district" 
+                            value={form.district} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Upazila <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="upazila" 
+                            value={form.upazila} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none" 
+                        />
+                    </div>
+                    
+                    <div className="md:col-span-2">
+                        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+                            Kazi Registration No. <span className="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="registrationNo" 
+                            value={form.registrationNo} 
+                            onChange={handleChange} 
+                            className="w-full border rounded px-3 py-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:outline-none disabled:bg-gray-100 dark:disabled:bg-gray-700" 
+                            disabled={!isEditable} 
+                        />
+                    </div>
+                </div>
+                
+                {isEditable && (
+                    <div className="flex flex-col sm:flex-row justify-end gap-2 mt-6">
+                        <button 
+                            type="submit" 
+                            className="px-6 py-2 bg-green-700 dark:bg-green-600 text-white rounded font-semibold hover:bg-green-800 dark:hover:bg-green-700 transition-colors w-full sm:w-auto"
+                        >
+                            Submit Application
+                        </button>
+                    </div>
+                )}
+            </form>
+        </section>
+    </main>
+);
 };
 
 export default KaziApplicationForm;

@@ -14,7 +14,7 @@ const Banner = () => {
         });
     }, []);
 
-    // Sample images - replace these with your actual images
+    // Sample images 
     const bannerImages = [
         "https://i.ibb.co.com/SbNksdp/photo-1644337111604-aa1816b542a1-q-80-w-1171-auto-format-fit-crop-ixlib-rb-4-1.jpg",
         "https://i.ibb.co.com/YBg4PCqN/photo-1606800052052-a08af7148866-q-80-w-1170-auto-format-fit-crop-ixlib-rb-4-1.jpg",

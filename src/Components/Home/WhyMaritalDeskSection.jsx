@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaCheck, FaDatabase, FaFileSignature, FaShieldAlt, FaBolt, FaQrcode } from 'react-icons/fa';
 import { MdOutlineVerified } from 'react-icons/md';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const WhyMaritalDeskSection = () => {
+    // animation
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            offset: 100,
+            once: true,
+        });
+    }, []);
+
     const features = [
         {
             icon: <FaDatabase className="w-6 h-6" />,
@@ -45,7 +56,8 @@ const WhyMaritalDeskSection = () => {
     return (
         <div className="py-16 bg-white dark:bg-gray-900">
             <div className="max-w-6xl mx-auto px-4">
-                <div className="text-center mb-12">
+                {/* header */}
+                <div className="text-center mb-12" data-aos="fade-right">
                     <div className="inline-flex items-center gap-3 mb-4">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 flex items-center justify-center">
                             <FaCheck className="w-6 h-6 text-green-600 dark:text-green-400" />
@@ -59,7 +71,7 @@ const WhyMaritalDeskSection = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-left" data-aos-delay="200">
                     {features.map((feature, index) => (
                         <div
                             key={index}
@@ -88,7 +100,7 @@ const WhyMaritalDeskSection = () => {
                 </div>
 
                 {/* Trust Badges */}
-                <div className="mt-12 bg-gradient-to-r from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8">
+                <div className="mt-12 bg-gradient-to-r from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8" data-aos="fade-left" data-aos-delay="300">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="text-center">
                             <div className="text-4xl font-bold text-green-800 dark:text-green-300 mb-2">100%</div>

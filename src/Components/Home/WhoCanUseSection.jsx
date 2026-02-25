@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaUser, FaUserShield, FaUserTie } from 'react-icons/fa';
 import { GiArchiveRegister } from 'react-icons/gi';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const WhoCanUseSection = () => {
+    // animation
+        useEffect(() => {
+            AOS.init({
+                duration: 1000,
+                offset: 100,
+                once: true,
+            });
+        }, []);
     return (
         <div className="py-16 bg-gray-50 dark:bg-gray-900">
             <div className="max-w-6xl mx-auto px-4">
-                <div className="text-center mb-12">
+                {/* header */}
+                <div className="text-center mb-12" data-aos="fade-down">
                     <div className="inline-flex items-center gap-3 mb-4">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 flex items-center justify-center">
                             <FaUser className="w-6 h-6 text-green-600 dark:text-green-400" />
@@ -20,7 +31,7 @@ const WhoCanUseSection = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
                     {/* Citizen Card */}
                     <div className="group bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-700">
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">

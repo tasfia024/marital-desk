@@ -1,7 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiChevronDown } from 'react-icons/fi'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const FAQ = () => {
+  // animation
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            offset: 100,
+            once: true,
+        });
+    }, []);
   const faqs = [
     {
       question: 'What is MaritalDesk?',
@@ -53,7 +63,7 @@ const FAQ = () => {
                     dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 
                     max-w-6xl mx-auto rounded-2xl my-8 md:my-12'
     >
-      <div className='text-center max-w-4xl mx-auto space-y-4 mb-8'>
+      <div className='text-center max-w-4xl mx-auto space-y-4 mb-8' data-aos="fade-down">
         <h2 className='text-white text-2xl md:text-3xl font-bold transition-all duration-300 hover:scale-105'>
           Frequently Asked Questions (FAQ)
         </h2>
@@ -64,7 +74,7 @@ const FAQ = () => {
         </p>
       </div>
 
-      <div className='w-full max-w-3xl mx-auto space-y-4'>
+      <div className='w-full max-w-3xl mx-auto space-y-4' data-aos="fade-down" data-aos-delay="200">
         {faqs.map((faq, index) => (
           <div
             key={index}
@@ -73,7 +83,7 @@ const FAQ = () => {
                                  openIndex === index
                                    ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300 dark:border-yellow-700 shadow-lg transform scale-[1.02]'
                                    : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-md hover:-translate-y-1'
-                               }`}
+                               }` }
           >
             {/* Question */}
             <button
