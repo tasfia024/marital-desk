@@ -5,7 +5,7 @@ import jsPDF from 'jspdf';
 import { toast } from 'react-toastify';
 import { apiClient } from "../../../config/api";
 import { BASE_URL } from '../../../config/baseUrl';
-import logoImg from '../../../assets/MaritalDesk.png';
+import logoImg from '../../../assets/maritaldesk-dark.png';
 
 const CertificateView = () => {
     const { id } = useParams();

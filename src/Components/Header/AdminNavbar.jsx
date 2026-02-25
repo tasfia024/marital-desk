@@ -1,6 +1,6 @@
 import React, { use, useState, useEffect } from 'react'
 import logoImg from '../../assets/maritaldesk-light.png'
-import logoDark from '../../assets/maritaldesk.png'
+import logoDark from '../../assets/maritaldesk-dark.png'
 import { AuthContext } from '../../Provider/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { User, LogOut, Sun, Moon, Menu } from 'lucide-react'

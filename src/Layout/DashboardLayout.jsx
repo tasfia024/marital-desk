@@ -1,5 +1,5 @@
 import { use, useEffect, useState } from 'react'
-import logoImg from '../../assets/maritaldesk.png'
+import logoImg from '../../assets/maritaldesk-dark.png'
 import logoDark from '../../assets/maritaldesk-light.png'
 import { AuthContext } from '../../Provider/AuthContext'
 import { toast } from 'react-toastify'
