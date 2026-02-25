@@ -1,6 +1,6 @@
 import React, { use, useState, useEffect } from 'react'
-import logoImg from '../../assets/MaritalDesk-light.png'
-import logoDark from '../../assets/MaritalDesk.png'
+import logoImg from '../../assets/maritaldesk-light.png'
+import logoDark from '../../assets/maritaldesk.png'
 import { AuthContext } from '../../Provider/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { User, LogOut, Sun, Moon, Menu } from 'lucide-react'
@@ -47,7 +47,7 @@ const AdminNavbar = ({ onSidebarToggle }) => {
     <nav className='w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700   z-40'>
       <div className='px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-16'>
-          
+
           {/* Left section */}
           <div className='flex items-center gap-2'>
             <button
@@ -62,7 +62,7 @@ const AdminNavbar = ({ onSidebarToggle }) => {
               <img
                 src={theme === 'dark' ? logoImg : logoDark}
                 alt='MaritalDesk logo'
-                className='h-8 w-auto' 
+                className='h-8 w-auto'
               />
               <div className='hidden sm:flex items-center gap-2'>
                 <span className='text-2xl font-light text-gray-300 dark:text-gray-600'>|</span>
