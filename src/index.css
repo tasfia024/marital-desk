@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-/* @plugin "daisyui" {
-  themes:light --default, dark --prefersdark,
-    forest, halloween, ;
-} */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@plugin "daisyui" {
+  themes:light --default, dark --prefersdark
+}
 
 @plugin "daisyui";

@@ -8,14 +8,14 @@ const AdminSidebar = (props) => {
     const { user } = use(AuthContext);
 
     const { open, onClose } = props;
-    const sidebarClass = `fixed inset-y-0 left-0 z-40 w-64 bg-gradient-to-r from-[#013223] to-[#006747] text-white p-6 space-y-6 transform transition-transform duration-300
+    const sidebarClass = `fixed inset-y-0 left-0 z-40 w-64 bg-[#006747] dark:bg-gray-700 text-white p-6 space-y-6 transform transition-transform duration-300
         ${open ? 'translate-x-0' : '-translate-x-full'} md:static md:translate-x-0 md:block`;
 
     return (
         <>
             {/* Overlay for mobile when sidebar is open */}
             {open && (
-                <div className="fixed inset-0 bg-black bg-opacity-40 z-30 md:hidden" onClick={onClose}></div>
+                <div className="fixed inset-0  bg-opacity-40 z-30 md:hidden" onClick={onClose}></div>
             )}
             <aside className={sidebarClass}>
                 {/* Close button for mobile */}

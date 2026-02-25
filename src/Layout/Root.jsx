@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 const Root = () => {
     return (
         <div>
+            <title>Home | MaritalDesk</title>
             <Navbar></Navbar>
             <div className="flex flex-col min-h-screen">
                 <main className="flex-1">

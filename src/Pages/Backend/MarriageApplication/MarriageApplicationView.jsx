@@ -137,328 +137,359 @@ const MarriageApplicationView = () => {
     const canApproveAdmin = isAdmin && application.approvalStatus === "checked" && application.approvalStatus !== "approved";
 
     return (
-        <main className="flex-1 p-10">
-            <header className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Marriage Application Details</h2>
-                <button
-                    className="px-4 py-2 bg-gray-300 rounded font-semibold hover:bg-gray-400"
-                    onClick={() => navigate("/marital-desk/marriage-applications")}
-                >
-                    Back
-                </button>
-            </header>
+    <main className="flex-1 p-4 sm:p-6 lg:p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <header className="border-b border-gray-300 dark:border-gray-700 pb-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Marriage Application Details</h2>
+            <button
+                className="px-4 py-2 bg-gray-300 dark:bg-gray-700 dark:text-gray-200 rounded font-semibold hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors w-full sm:w-auto"
+                onClick={() => navigate("/marital-desk/marriage-applications")}
+            >
+                Back
+            </button>
+        </header>
 
-            {error && <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">{error}</div>}
-            {successMsg && <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">{successMsg}</div>}
+        {error && (
+            <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 rounded">
+                {error}
+            </div>
+        )}
+        
+        {successMsg && (
+            <div className="mb-4 p-3 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-300 rounded">
+                {successMsg}
+            </div>
+        )}
 
-            <section className="bg-white rounded-lg shadow-lg p-8">
-                {/* Status Section */}
-                <div className="mb-8 pb-6 border-b">
-                    <h3 className="text-xl font-bold mb-4">Application Status & Approval Timeline</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                        <div className="p-4 bg-gray-50 rounded border">
-                            <p className="text-sm text-gray-600 mb-2">Proposal Status</p>
-                            <span className={`inline-block px-3 py-1 rounded-full font-semibold text-sm ${application.proposalStatus === 'accepted' ? 'bg-green-100 text-green-800' : application.proposalStatus === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                                {application.proposalStatus}
-                            </span>
-                        </div>
-                        <div className="p-4 bg-gray-50 rounded border">
-                            <p className="text-sm text-gray-600 mb-2">Approval Status</p>
-                            <span className={`inline-block px-3 py-1 rounded-full font-semibold text-sm ${getApprovalStatusBadge(application.approvalStatus)}`}>
-                                {application.approvalStatus}
-                            </span>
-                        </div>
-                        <div className="p-4 bg-gray-50 rounded border">
-                            <p className="text-sm text-gray-600 mb-2">Marital Status</p>
-                            <span className="inline-block px-3 py-1 rounded-full font-semibold text-sm bg-blue-100 text-blue-800">
-                                {application.maritalStatus}
-                            </span>
-                        </div>
-                        <div className="p-4 bg-gray-50 rounded border">
-                            <p className="text-sm text-gray-600 mb-2">Application Date</p>
-                            <p className="text-sm font-semibold">{new Date(application.createdAt).toLocaleDateString()}</p>
-                        </div>
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900 p-4 sm:p-6 lg:p-8 border border-gray-200 dark:border-gray-700">
+            {/* Status Section */}
+            <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Application Status & Approval Timeline</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-700">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Proposal Status</p>
+                        <span className={`inline-block px-3 py-1 rounded-full font-semibold text-sm ${
+                            application.proposalStatus === 'accepted' 
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
+                                : application.proposalStatus === 'rejected' 
+                                ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' 
+                                : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+                        }`}>
+                            {application.proposalStatus}
+                        </span>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                        {application.marriageDate && (
-                            <div className="p-4 bg-purple-50 rounded border-l-4 border-purple-500">
-                                <p className="text-sm text-gray-600 mb-2">
-                                    {application.approvalStatus === "rejected" ? "Rejection Date:" : "Kazi Check Date:"}
-                                </p>
-                                <p className="font-semibold">{new Date(application.marriageDate).toLocaleString()}</p>
-                            </div>
-                        )}
-                        {application.approvalDate && (
-                            <div className="p-4 bg-green-50 rounded border-l-4 border-green-500">
-                                <p className="text-sm text-gray-600 mb-2">Final Approval Date (Admin):</p>
-                                <p className="font-semibold">{new Date(application.approvalDate).toLocaleString()}</p>
-                            </div>
-                        )}
+                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-700">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Approval Status</p>
+                        <span className={`inline-block px-3 py-1 rounded-full font-semibold text-sm ${getApprovalStatusBadge(application.approvalStatus)}`}>
+                            {application.approvalStatus}
+                        </span>
+                    </div>
+                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-700">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Marital Status</p>
+                        <span className="inline-block px-3 py-1 rounded-full font-semibold text-sm bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                            {application.maritalStatus}
+                        </span>
+                    </div>
+                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-700">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Application Date</p>
+                        <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                            {new Date(application.createdAt).toLocaleDateString()}
+                        </p>
                     </div>
                 </div>
-
-                {/* Groom Section */}
-                <div className="mb-8 pb-6 border-b">
-                    <h3 className="text-xl font-bold mb-4 text-blue-700">Groom Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        {groomUser && (
-                            <div className="p-4 bg-blue-50 rounded border-l-4 border-blue-500 flex items-center gap-4">
-                                <div className="w-16 h-16 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
-                                    {groomUser.image ? (
-                                        <img src={`${BASE_URL}${groomUser.image}`} crossOrigin="anonymous" alt={groomUser.name} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold text-xl">
-                                            {groomUser.name?.charAt(0).toUpperCase()}
-                                        </div>
-                                    )}
-                                </div>
-                                <div>
-                                    <p className="font-bold text-lg">{groomUser.name}</p>
-                                    <p className="text-sm text-gray-600">{groomUser.email}</p>
-                                    <p className="text-sm text-gray-600">{groomUser.mobile}</p>
-                                </div>
-                            </div>
-                        )}
-                        {groomMaritalStatus && (
-                            <div className="p-4 bg-blue-50 rounded border-l-4 border-blue-500">
-                                <h4 className="font-bold text-blue-800 mb-3">Marital Status</h4>
-                                <div className="space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Status:</span>
-                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                                            {groomMaritalStatus.maritalStatus}
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Marriages:</span>
-                                        <span className="font-semibold text-blue-900">{groomMaritalStatus.marriageCount}</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Divorces:</span>
-                                        <span className="font-semibold text-blue-900">{groomMaritalStatus.divorceCount}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Date of Birth</label>
-                            <p className="p-3 bg-gray-50 rounded">{groomUser?.dob ? new Date(groomUser.dob).toLocaleDateString() : "N/A"}</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    {application.marriageDate && (
+                        <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded border-l-4 border-purple-500 dark:border-purple-400">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                {application.approvalStatus === "rejected" ? "Rejection Date:" : "Kazi Check Date:"}
+                            </p>
+                            <p className="font-semibold text-gray-900 dark:text-white">
+                                {new Date(application.marriageDate).toLocaleString()}
+                            </p>
                         </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
-                            <p className="p-3 bg-gray-50 rounded">{groomUser?.dob ? calculateAge(groomUser.dob) + " years" : "N/A"}</p>
+                    )}
+                    {application.approvalDate && (
+                        <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded border-l-4 border-green-500 dark:border-green-400">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Final Approval Date (Admin):</p>
+                            <p className="font-semibold text-gray-900 dark:text-white">
+                                {new Date(application.approvalDate).toLocaleString()}
+                            </p>
                         </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">NID</label>
-                            <p className="p-3 bg-gray-50 rounded">{groomUser?.nid || "N/A"}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Gender</label>
-                            <p className="p-3 bg-gray-50 rounded">{groomUser?.gender || "N/A"}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Father's Name</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.groomFather}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Mother's Name</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.groomMother}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Religion</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.groomReligion}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Occupation</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.groomOccupation}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Education</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.groomEducation}</p>
-                        </div>
-                        <div className="md:col-span-2">
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Address</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.groomAddress}</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Bride Section */}
-                <div className="mb-8 pb-6 border-b">
-                    <h3 className="text-xl font-bold mb-4 text-pink-700">Bride Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        {brideUser && (
-                            <div className="p-4 bg-pink-50 rounded border-l-4 border-pink-500 flex items-center gap-4">
-                                <div className="w-16 h-16 rounded-full bg-gray-300 flex-shrink-0 overflow-hidden">
-                                    {brideUser.image ? (
-                                        <img src={`${BASE_URL}${brideUser.image}`} crossOrigin="anonymous" alt={brideUser.name} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-gray-400 text-white font-bold text-xl">
-                                            {brideUser.name?.charAt(0).toUpperCase()}
-                                        </div>
-                                    )}
-                                </div>
-                                <div>
-                                    <p className="font-bold text-lg">{brideUser.name}</p>
-                                    <p className="text-sm text-gray-600">{brideUser.email}</p>
-                                    <p className="text-sm text-gray-600">{brideUser.mobile}</p>
-                                </div>
-                            </div>
-                        )}
-                        {brideMaritalStatus && (
-                            <div className="p-4 bg-pink-50 rounded border-l-4 border-pink-500">
-                                <h4 className="font-bold text-pink-800 mb-3">Marital Status</h4>
-                                <div className="space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Status:</span>
-                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-800">
-                                            {brideMaritalStatus.maritalStatus}
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Marriages:</span>
-                                        <span className="font-semibold text-pink-900">{brideMaritalStatus.marriageCount}</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Divorces:</span>
-                                        <span className="font-semibold text-pink-900">{brideMaritalStatus.divorceCount}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Date of Birth</label>
-                            <p className="p-3 bg-gray-50 rounded">{brideUser?.dob ? new Date(brideUser.dob).toLocaleDateString() : "N/A"}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
-                            <p className="p-3 bg-gray-50 rounded">{brideUser?.dob ? calculateAge(brideUser.dob) + " years" : "N/A"}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">NID</label>
-                            <p className="p-3 bg-gray-50 rounded">{brideUser?.nid || "N/A"}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Gender</label>
-                            <p className="p-3 bg-gray-50 rounded">{brideUser?.gender || "N/A"}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Father's Name</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.brideFather}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Mother's Name</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.brideMother}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Religion</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.brideReligion}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Occupation</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.brideOccupation}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Education</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.brideEducation}</p>
-                        </div>
-                        <div className="md:col-span-2">
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Address</label>
-                            <p className="p-3 bg-gray-50 rounded">{application.brideAddress}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="mb-8">
-                    <h3 className="text-xl font-bold mb-4 text-green-700">Kazi (Marriage Registrar) Information</h3>
-                    {kazi ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Name</label>
-                                <p className="p-3 bg-gray-50 rounded">{kazi.name}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-                                <p className="p-3 bg-gray-50 rounded">{kazi.email}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Phone</label>
-                                <p className="p-3 bg-gray-50 rounded">{kazi.phone}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">District</label>
-                                <p className="p-3 bg-gray-50 rounded">{kazi.district}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Upazila</label>
-                                <p className="p-3 bg-gray-50 rounded">{kazi.upazila}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Registration No</label>
-                                <p className="p-3 bg-gray-50 rounded">{kazi.registrationNo}</p>
-                            </div>
-                        </div>
-                    ) : (
-                        <p className="text-gray-600">Kazi information not available</p>
                     )}
                 </div>
+            </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-4 justify-center flex-wrap">
-                    {canEditKazi && (
+            {/* Groom Section */}
+            <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-xl font-bold mb-4 text-blue-700 dark:text-blue-400">Groom Information</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
+                    {groomUser && (
+                        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded border-l-4 border-blue-500 dark:border-blue-400 flex flex-col sm:flex-row items-center gap-4">
+                            <div className="w-16 h-16 rounded-full bg-gray-300 dark:bg-gray-700 flex-shrink-0 overflow-hidden">
+                                {groomUser.image ? (
+                                    <img src={`${BASE_URL}${groomUser.image}`} crossOrigin="anonymous" alt={groomUser.name} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-gray-400 dark:bg-gray-600 text-white font-bold text-xl">
+                                        {groomUser.name?.charAt(0).toUpperCase()}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="text-center sm:text-left">
+                                <p className="font-bold text-lg text-gray-900 dark:text-white">{groomUser.name}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{groomUser.email}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{groomUser.mobile}</p>
+                            </div>
+                        </div>
+                    )}
+                    {groomMaritalStatus && (
+                        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded border-l-4 border-blue-500 dark:border-blue-400">
+                            <h4 className="font-bold text-blue-800 dark:text-blue-300 mb-3">Marital Status</h4>
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">Status:</span>
+                                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                        {groomMaritalStatus.maritalStatus}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">Marriages:</span>
+                                    <span className="font-semibold text-blue-900 dark:text-blue-300">{groomMaritalStatus.marriageCount}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">Divorces:</span>
+                                    <span className="font-semibold text-blue-900 dark:text-blue-300">{groomMaritalStatus.divorceCount}</span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Date of Birth</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">
+                            {groomUser?.dob ? new Date(groomUser.dob).toLocaleDateString() : "N/A"}
+                        </p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Age</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">
+                            {groomUser?.dob ? calculateAge(groomUser.dob) + " years" : "N/A"}
+                        </p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">NID</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{groomUser?.nid || "N/A"}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Gender</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{groomUser?.gender || "N/A"}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Father's Name</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.groomFather}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Mother's Name</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.groomMother}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Religion</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.groomReligion}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Occupation</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.groomOccupation}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Education</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.groomEducation}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Address</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.groomAddress}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bride Section */}
+            <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-xl font-bold mb-4 text-pink-700 dark:text-pink-400">Bride Information</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
+                    {brideUser && (
+                        <div className="p-4 bg-pink-50 dark:bg-pink-900/20 rounded border-l-4 border-pink-500 dark:border-pink-400 flex flex-col sm:flex-row items-center gap-4">
+                            <div className="w-16 h-16 rounded-full bg-gray-300 dark:bg-gray-700 flex-shrink-0 overflow-hidden">
+                                {brideUser.image ? (
+                                    <img src={`${BASE_URL}${brideUser.image}`} crossOrigin="anonymous" alt={brideUser.name} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-gray-400 dark:bg-gray-600 text-white font-bold text-xl">
+                                        {brideUser.name?.charAt(0).toUpperCase()}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="text-center sm:text-left">
+                                <p className="font-bold text-lg text-gray-900 dark:text-white">{brideUser.name}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{brideUser.email}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{brideUser.mobile}</p>
+                            </div>
+                        </div>
+                    )}
+                    {brideMaritalStatus && (
+                        <div className="p-4 bg-pink-50 dark:bg-pink-900/20 rounded border-l-4 border-pink-500 dark:border-pink-400">
+                            <h4 className="font-bold text-pink-800 dark:text-pink-300 mb-3">Marital Status</h4>
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">Status:</span>
+                                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-400">
+                                        {brideMaritalStatus.maritalStatus}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">Marriages:</span>
+                                    <span className="font-semibold text-pink-900 dark:text-pink-300">{brideMaritalStatus.marriageCount}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">Divorces:</span>
+                                    <span className="font-semibold text-pink-900 dark:text-pink-300">{brideMaritalStatus.divorceCount}</span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Date of Birth</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">
+                            {brideUser?.dob ? new Date(brideUser.dob).toLocaleDateString() : "N/A"}
+                        </p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Age</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">
+                            {brideUser?.dob ? calculateAge(brideUser.dob) + " years" : "N/A"}
+                        </p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">NID</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{brideUser?.nid || "N/A"}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Gender</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{brideUser?.gender || "N/A"}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Father's Name</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.brideFather}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Mother's Name</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.brideMother}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Religion</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.brideReligion}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Occupation</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.brideOccupation}</p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Education</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.brideEducation}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Address</label>
+                        <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{application.brideAddress}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Kazi Section */}
+            <div className="mb-8">
+                <h3 className="text-xl font-bold mb-4 text-green-700 dark:text-green-400">Kazi (Marriage Registrar) Information</h3>
+                {kazi ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                            <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{kazi.name}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                            <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{kazi.email}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Phone</label>
+                            <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{kazi.phone}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">District</label>
+                            <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{kazi.district}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Upazila</label>
+                            <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{kazi.upazila}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Registration No</label>
+                            <p className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded dark:text-gray-300">{kazi.registrationNo}</p>
+                        </div>
+                    </div>
+                ) : (
+                    <p className="text-gray-600 dark:text-gray-400">Kazi information not available</p>
+                )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
+                {canEditKazi && (
+                    <button
+                        onClick={handleEdit}
+                        className="px-6 py-2 bg-yellow-500 dark:bg-yellow-600 text-white rounded hover:bg-yellow-600 dark:hover:bg-yellow-700 font-semibold transition-colors w-full sm:w-auto"
+                    >
+                        Edit Application
+                    </button>
+                )}
+
+                {canApproveKazi && (
+                    <>
                         <button
-                            onClick={handleEdit}
-                            className="px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 font-semibold"
+                            onClick={handleKaziCheck}
+                            className="px-6 py-2 bg-green-600 dark:bg-green-700 text-white rounded hover:bg-green-700 dark:hover:bg-green-800 font-semibold transition-colors w-full sm:w-auto"
                         >
-                            Edit Application
+                            Check & Approve
                         </button>
-                    )}
-
-                    {canApproveKazi && (
-                        <>
-                            <button
-                                onClick={handleKaziCheck}
-                                className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-semibold"
-                            >
-                                Check & Approve
-                            </button>
-                            <button
-                                onClick={handleKaziReject}
-                                className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 font-semibold"
-                            >
-                                Reject
-                            </button>
-                        </>
-                    )}
-
-                    {canApproveAdmin && (
                         <button
-                            onClick={handleAdminApprove}
-                            className="px-6 py-2 bg-green-700 text-white rounded hover:bg-green-800 font-semibold"
+                            onClick={handleKaziReject}
+                            className="px-6 py-2 bg-red-600 dark:bg-red-700 text-white rounded hover:bg-red-700 dark:hover:bg-red-800 font-semibold transition-colors w-full sm:w-auto"
                         >
-                            Approve (Admin)
+                            Reject
                         </button>
-                    )}
+                    </>
+                )}
 
-                    {!canEditKazi && !canApproveKazi && !canApproveAdmin && application.approvalStatus === "approved" && (
-                        <div className="text-center text-green-700 font-semibold">
-                            ✓ Application is fully approved.
-                        </div>
-                    )}
+                {canApproveAdmin && (
+                    <button
+                        onClick={handleAdminApprove}
+                        className="px-6 py-2 bg-green-700 dark:bg-green-800 text-white rounded hover:bg-green-800 dark:hover:bg-green-900 font-semibold transition-colors w-full sm:w-auto"
+                    >
+                        Approve (Admin)
+                    </button>
+                )}
 
-                    {application.approvalStatus === "rejected" && (
-                        <div className="text-center text-red-700 font-semibold">
-                            ✗ Application has been rejected.
-                        </div>
-                    )}
-                </div>
-            </section>
-        </main>
-    );
+                {!canEditKazi && !canApproveKazi && !canApproveAdmin && application.approvalStatus === "approved" && (
+                    <div className="text-center text-green-700 dark:text-green-400 font-semibold">
+                        ✓ Application is fully approved.
+                    </div>
+                )}
+
+                {application.approvalStatus === "rejected" && (
+                    <div className="text-center text-red-700 dark:text-red-400 font-semibold">
+                        ✗ Application has been rejected.
+                    </div>
+                )}
+            </div>
+        </section>
+    </main>
+);
 };
 
 export default MarriageApplicationView;

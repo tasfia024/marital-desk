@@ -15,6 +15,7 @@ const CertificateView = () => {
     const [kazi, setKazi] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    console.log(loading,error);
 
     useEffect(() => {
         fetchApplication();

@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaArrowRight, FaUserPlus, FaFileContract, FaUserTie } from 'react-icons/fa';
 import { Link } from 'react-router';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const CallToActionSection = () => {
+    // animation
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            offset: 100,
+            once: true,
+        });
+    }, []);
     const actions = [
         {
             icon: <FaUserPlus className="w-6 h-6" />,
@@ -33,7 +43,7 @@ const CallToActionSection = () => {
     return (
         <div className="py-20 bg-gradient-to-br from-[#013223] to-[#006747] dark:from-gray-900 dark:to-gray-800">
             <div className="max-w-6xl mx-auto px-4">
-                <div className="text-center mb-12">
+                <div className="text-center mb-12" data-aos="fade-right">
                     <h2 className="text-4xl font-bold text-white dark:text-green-300 mb-4">
                         Get Started with MaritalDesk Today
                     </h2>
@@ -42,7 +52,7 @@ const CallToActionSection = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" data-aos="fade-left" data-aos-delay="200">
                     {actions.map((action, index) => (
                         <Link
                             key={index}
