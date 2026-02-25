@@ -1,5 +1,5 @@
 import React from 'react';
-import logoDarkImg from '../../assets/MaritalDesk-light.png'
+import logoDarkImg from '../../assets/MaritalDeskLight.png'
 const Footer = () => {
     return (
         <div className=' '>

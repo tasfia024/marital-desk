@@ -1,6 +1,7 @@
 import React, { use, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router'
 import logoImg from '../../assets/MaritalDesk.png'
+import logoDark from '../../assets//MaritalDeskLight.png'
 import { AuthContext } from '../../Provider/AuthContext'
 import { toast } from 'react-toastify'
 import { Sun, Moon } from 'lucide-react'
@@ -156,7 +157,7 @@ const Navbar = () => {
             />
             {/* dark mode logo */}
             <img
-              src={logoImg}
+              src={logoDark}
               alt='MaritalDesk logo (dark)'
               className='w-15 hidden dark:block'
             />

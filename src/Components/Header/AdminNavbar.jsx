@@ -1,4 +1,5 @@
 import React, { use, useState, useEffect } from 'react'
+import logoImg from '../../assets/MaritalDeskLight.png'
 import logoDark from '../../assets/MaritalDesk.png'
 import { AuthContext } from '../../Provider/AuthContext'
 import { useNavigate } from 'react-router-dom'
@@ -59,7 +60,7 @@ const AdminNavbar = ({ onSidebarToggle }) => {
             <Link to='/' className='flex items-center gap-2 shrink-0'>
               {/* Simplified Logo Logic */}
               <img
-                src={theme === 'dark' ? logoDark : logoDark}
+                src={theme === 'dark' ? logoImg : logoDark}
                 alt='MaritalDesk logo'
                 className='h-8 w-auto'
               />
